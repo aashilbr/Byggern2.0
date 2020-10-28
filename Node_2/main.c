@@ -13,6 +13,13 @@
 //#include "can_interrupt.h"
 #include "joystick.h"
 #include "ir_signal.h"
+#include "pingpong_states.h"
+#include "motor_controller.h"
+
+
+
+
+
 
 
 int main(void)
@@ -30,6 +37,7 @@ int main(void)
 	can_init_def_tx_rx_mb(0x00290561);
 	timer_init();
 	adc_init();
+	
 //	CAN_MESSAGE mess;
 // 	mess.id = 0b00001111;
 // 	mess.data[0]=5;
@@ -42,10 +50,16 @@ int main(void)
 	
 	set_duty_cycle(7);
 	CAN_MESSAGE m;
-    /* Replace with your application code */
+	int count= 0;
+	motor_init();
+	//PIOD->PIO_CODR = PIO_CODR_P10;
     while (1) 
     {	
-		printf("adc : %d \n \r", read_ir_signal());
+		//printf("status %d \n \r", ADC->ADC_CDR[0]);
+		//printf("adc : %d \n \r", read_ir_signal());
+		count_score();
+		printf("Score: %d \n\r", pingpong_state.score);
+		
 		/*for(double i=4.5; i<10.5; i+=0.5){
 			set_duty_cycle(i);
 		}*/
@@ -64,3 +78,4 @@ int main(void)
 		
     }
 }
+

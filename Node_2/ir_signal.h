@@ -9,7 +9,7 @@
 #ifndef IR_SIGNAL_H_
 #define IR_SIGNAL_H_
 #include "sam.h"
-uint8_t read_ir_signal();
+uint16_t read_ir_signal();
 
 
 

@@ -14,6 +14,6 @@ void timer_init(void);
 
 void set_duty_cycle(double percent);
 
-void pos_to_duty_cycle(int pos);
+void pos_to_duty_cycle(int8_t pos);
 
 #endif /* TIMER_H_ */

@@ -10,7 +10,7 @@
 
 
 void timer_init(void){
-	PMC->PMC_WPMR &=~(1<<0); //clear WPEN in PMC_WPMR
+	PMC->PMC_WPMR &= ~(ADC_WPMR_WPEN); //clear WPEN in PMC_WPMR
 	PMC->PMC_PCER0 |= 1<<27; //enable peripheral clock 27(Timer counter channel 0)
 
 	TC0->TC_CHANNEL[0].TC_CCR |= TC_CCR_CLKEN; // set CLKEN in TC_CCR0 -> enable the clock 
@@ -53,7 +53,7 @@ void set_duty_cycle(double percent){
 }
 
 
-void pos_to_duty_cycle(int pos){
+void pos_to_duty_cycle(int8_t pos){
 	double percent= ((pos+100)*0.06/200+0.045)*100;
 	set_duty_cycle(percent);
 }

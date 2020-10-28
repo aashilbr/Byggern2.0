@@ -17,6 +17,7 @@
 
 #include "can_controller.h"
 #include "joystick.h"
+#include "motor_controller.h"
 #define DEBUG_INTERRUPT 1
 
 /**
@@ -40,7 +41,9 @@ void CAN0_Handler( void )
 			can_receive(&message, 1);
 			js_pos.x =message.data[0];
 			js_pos.y = message.data[1];
-			pos_to_duty_cycle(js_pos.x);
+			pos_to_duty_cycle(-js_pos.y);
+			controller_speed(js_pos.x);
+			printf("Encoder: %d \n\r",read_encoder);
 
 		}
 		else if(can_sr & CAN_SR_MB2) //Mailbox 2 event
@@ -49,7 +52,10 @@ void CAN0_Handler( void )
 			can_receive(&message, 2);
 			js_pos.x =message.data[0];
 			js_pos.y = message.data[1];
-			pos_to_duty_cycle(js_pos.x);
+			pos_to_duty_cycle(-js_pos.y);
+			controller_speed(js_pos.x);
+			printf("Encoder: %d \n\r",read_encoder);
+			
 		}
 		else
 		{
