@@ -214,8 +214,8 @@ int main(void)
 		message.data[1]=joystick.y;
 		message.length=2;
 		printf("X_j: %d \n \r", joystick.x);
-		//CAN_send_message(&message);
-		printf("X: %d \n \r", message.data[0]);
+		CAN_send_message(&message);
+		//printf("X: %d \n \r", message.data[0]);
 	}
  	return 0;
 }
