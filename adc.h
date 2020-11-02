@@ -28,6 +28,7 @@ typedef struct{
 	int8_t y_offset;
 }pos_js;
 
+pos_js joystick; 
 /**
 * direction:
 * @brief An enum containing the direction of the joystick.

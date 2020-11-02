@@ -23,6 +23,8 @@
 #include "SPI.h"
 #include "MCP2515_driver.h"
 #include "CAN.h"
+#include "pingpong.h"
+
 
 static void menu_no_action(void){
 	oled_print("Activation \n");
@@ -94,18 +96,18 @@ static Menu_node m_menu_nodes[]={
 		ttt_menu_game
 	},
 	{
-		"High score",
-		m_menu_nodes + 4,
-		NULL,
-		m_menu_nodes + 10,
-		oled_menu_high_score_sub
-	},
-	{
 		"Play",
 		m_menu_nodes + 4,
 		NULL,
+		m_menu_nodes + 10,
+		pingpong_play
+	},
+	{
+		"High score",
+		m_menu_nodes + 4,
 		NULL,
-		menu_no_action//play pinpong
+		NULL,
+		oled_menu_high_score_sub
 	},
 	{
 		"MIN",
@@ -188,33 +190,36 @@ int main(void)
 	
 	//printf("%x", mcp_read(MCP_CANSTAT));
 	
-	//MENU
-	/*
 	
 	oled_clear_all();
-	pos_js joystick;
 	adc_calibrate(&joystick);
 	state current_state;
 	current_state.current_node=menu_root_node();
 	menu_init(&current_state);
 	
-		adc_joystick_pos(&joystick);
-		oled_navigate(adc_joystick_dir(&joystick), &current_state);
 		
-	*/
 	
 	Message message;
-	pos_js joystick;
+	
 	adc_calibrate(&joystick);
 	
 	//CAN_receive_message(&m);
 	while(1){
+		
 		adc_joystick_pos(&joystick);
+		oled_navigate(adc_joystick_dir(&joystick), &current_state);
+		
+		/*
 		message.data[0]=joystick.x;
 		message.data[1]=joystick.y;
 		message.length=2;
+		
 		printf("X_j: %d \n \r", joystick.x);
+		
 		CAN_send_message(&message);
+		
+		*/
+		
 		//printf("X: %d \n \r", message.data[0]);
 	}
  	return 0;
