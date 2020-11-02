@@ -52,14 +52,15 @@ int main(void)
 	CAN_MESSAGE m;
 	int count= 0;
 	motor_init();
+	
 	//PIOD->PIO_CODR = PIO_CODR_P10;
     while (1) 
     {	
 		//printf("status %d \n \r", ADC->ADC_CDR[0]);
 		//printf("adc : %d \n \r", read_ir_signal());
 		count_score();
-		printf("Score: %d \n\r", pingpong_state.score);
-		
+		//printf("Score: %d \n\r", pingpong_state.score);
+		printf("Encoder: %d \n\r",read_encoder());
 		/*for(double i=4.5; i<10.5; i+=0.5){
 			set_duty_cycle(i);
 		}*/
@@ -78,4 +79,6 @@ int main(void)
 		
     }
 }
+
+
 

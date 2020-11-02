@@ -6,6 +6,7 @@
  */ 
 
 #include "motor_controller.h"
+#define DIFF_ENCODER 18000
 
 
 void motor_init(void){
@@ -39,28 +40,51 @@ void motor_init(void){
 	PIOC->PIO_PER |= PIO_PER_P8; 
 	
 	PIOD->PIO_SODR = PIO_SODR_P9;
-	PIOD->PIO_SODR = PIO_SODR_P10;
+	PIOD->PIO_CODR = PIO_CODR_P10;
+	PIOD->PIO_SODR |= PIO_SODR_P1;
+	
+	//calibrate encoder at the left side of the box
+	DACC->DACC_CDR = (0x1000 | 2000);
+	for (int i = 0; i<42000000; i++){}
+	//set speed = 0
+	DACC->DACC_CDR = (0x1000);
+	//toggle
+	PIOD->PIO_CODR |= PIO_CODR_P1;
+	PIOD->PIO_SODR |= PIO_SODR_P1;
+	
+	
+	
 }
 
 //sender man 0 til IO pinnen sender man 3.3V til releet
 
-uint16_t read_encoder(void){
-	PIOD->PIO_CODR = PIO_CODR_P0; //set !OE low to enable output of encoder
-	PIOD->PIO_CODR = PIO_CODR_P2; //Set SEL low to get high byte
+int16_t read_encoder(void){
+	PIOD->PIO_CODR |= PIO_CODR_P0; //set !OE low to enable output of encoder
+	PIOD->PIO_CODR |= PIO_CODR_P2; //Set SEL low to get high byte
+	
 	//vent 20micro s
-	for (int i = 0; i<1680;i++){}
-	uint8_t MSB = PIOC->PIO_PDSR & (0xff);
-	PIOD->PIO_SODR = PIO_SODR_P2; //Set SEL high to get low byte
+	for (int i = 0; i<4000;i++){}
+	uint8_t MSB = PIOC->PIO_PDSR ;
+	
+	PIOD->PIO_SODR |= PIO_SODR_P2; //Set SEL high to get low byte
+	
 	//vent 20 micro s
-	for (int i = 0; i<1680;i++){}
-	uint8_t LSB = PIOC->PIO_PDSR & (0xff);
+	for (int i = 0; i<4000;i++){}
+	uint8_t LSB = PIOC->PIO_PDSR ;
 	
-	PIOD->PIO_CODR = PIO_CODR_P1;
-	PIOD->PIO_SODR = PIO_SODR_P1;
-	PIOD->PIO_SODR = PIO_SODR_P0;
+	//toggle
+	PIOD->PIO_CODR |= PIO_CODR_P1;
+	PIOD->PIO_SODR |= PIO_SODR_P1;
 	
-	uint16_t encoder_data = (LSB | (MSB<<8));
-	//gjøre no med data
+	PIOD->PIO_SODR |= PIO_SODR_P0;
+	
+	int16_t encoder_data = (LSB | (MSB<<8));
+	
+	//Convert to -100,100
+	
+	
+	//encoder_data = encoder_data/DIFF_ENCODER ;
+	
 	return encoder_data;
 }
 

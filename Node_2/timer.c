@@ -7,8 +7,6 @@
 
 #include "timer.h"
 
-
-
 void timer_init(void){
 	PMC->PMC_WPMR &= ~(ADC_WPMR_WPEN); //clear WPEN in PMC_WPMR
 	PMC->PMC_PCER0 |= 1<<27; //enable peripheral clock 27(Timer counter channel 0)
@@ -27,7 +25,10 @@ void timer_init(void){
 	TC0->TC_CHANNEL[0].TC_RA |=88200;
 	TC0->TC_CHANNEL[0].TC_RC |= 840000;
 	PMC->PMC_PCK[0] |= PMC_PCK_PRES_CLK_1;
-	
+		TC0->TC_QIER |= TC_QIDR_QERR; //Enable QERR in QDEC Interrupt Enable Register 
+	TC0->TC_BMR |= TC_BMR_QDEN; // Enables the QDEC
+	TC0->TC_BMR |= TC_BMR_POSEN; // Enables the position measure on channel 0 and 1
+	TC0->TC_CHANNEL[0].TC_CMR |= TC_CMR_TCCLKS_XC0;  //TC_CMR0 configured to select XC0 input ??
 	
 	/*//TC0->TC_RC=0x19a280;
 	TC0->TC_RA=
@@ -58,4 +59,3 @@ void pos_to_duty_cycle(int8_t pos){
 	set_duty_cycle(percent);
 }
 
- 
