@@ -30,7 +30,7 @@ uint8_t CAN_init(uint8_t mode){
 	mcp_bit_modify(MCP_CNF1, 0b00111111, 0x03);		//BRP: Tq=8/F_osc=95ns
 	
 
-	
+	//SELF TEST
 	if(mcp_read(MCP_CNF1)!=0x03){
 		printf("CNF1 is NOT in configured!\n\r");
 	}
