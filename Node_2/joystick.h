@@ -14,6 +14,7 @@
 typedef struct{
 	int8_t x;
 	int8_t y;
+	int8_t shoot;
 }pos_js;
 
 

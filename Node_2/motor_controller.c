@@ -62,9 +62,8 @@ void motor_init(void){
 
 }
 
-//sender man 0 til IO pinnen sender man 3.3V til releet
 
-int16_t read_encoder(void){
+int8_t read_encoder(void){
 	PIOD->PIO_CODR |= PIO_CODR_P0; //set !OE low to enable output of encoder
 	PIOD->PIO_CODR |= PIO_CODR_P2; //Set SEL low to get high byte
 	
@@ -86,9 +85,9 @@ int16_t read_encoder(void){
 	if(encoder_data>0){encoder_data=0;}
 	if (encoder_data<-17000){encoder_data=-17000;}
 	
-	//Convert from 0 to 17 000 to -100,100
-	encoder_data = (-1)*(encoder_data)*200/17000 -100;
-	
+	//Convert from 0 to -17 000 to -100,100
+	 encoder_data = (int8_t) (-1)*(encoder_data)*200/17000 -100;
+	//printf("Encoder: %d \n \r", encoder_data);
 	return encoder_data;
 }
 
@@ -101,9 +100,11 @@ void set_direction_bit(int8_t reference){
 	}
 }
 
-void controller_speed(int8_t pos_x) {
-	set_direction_bit(pos_x);
-	int speed = (abs(pos_x))*(3000/100);
+void controller_speed(int16_t u) {
+	int8_t error = js_pos.x-read_encoder();
+	set_direction_bit(error);
+	int speed = (abs(u))*(2000/100);
+	printf("speed: %d error: %d \n \r", speed, error);
 	DACC->DACC_CDR = (0x1000 | speed);
 }
 

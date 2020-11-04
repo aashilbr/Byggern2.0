@@ -8,9 +8,14 @@
 
 #ifndef TIMER_H_
 #define TIMER_H_
+
 #include "sam.h"
 
+int c;
+
 void timer_init(void);
+
+void pwm2_init(void);
 
 void set_duty_cycle(double percent);
 

@@ -45,10 +45,7 @@ void CAN0_Handler( void )
 			else{
 				js_pos.x =message.data[0];
 				js_pos.y = message.data[1];
-				shoot(message.data[2]);
-				pos_to_duty_cycle(-js_pos.y);
-				controller_speed(js_pos.x);
-				printf("Encoder: %d \n\r",read_encoder());
+				js_pos.shoot = message.data[2];
 			}
 		}
 		else if(can_sr & CAN_SR_MB2) //Mailbox 2 event
@@ -59,10 +56,8 @@ void CAN0_Handler( void )
 			else{
 				js_pos.x =message.data[0];
 				js_pos.y = message.data[1];
-				shoot(message.data[2]);
-				pos_to_duty_cycle(-js_pos.y);
-				controller_speed(js_pos.x);
-				printf("Encoder: %d \n\r",read_encoder());
+				js_pos.shoot = message.data[2];
+				
 			}
 			
 		}
