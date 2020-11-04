@@ -29,7 +29,7 @@
  */
 void CAN0_Handler( void )
 {
-	if(DEBUG_INTERRUPT)printf("CAN0 interrupt\n\r");
+	if(DEBUG_INTERRUPT);//printf("CAN0 interrupt\n\r")
 	char can_sr = CAN0->CAN_SR; 
 
 	//RX interrupt
@@ -37,43 +37,51 @@ void CAN0_Handler( void )
 	{
 		CAN_MESSAGE message;
 		if(can_sr & CAN_SR_MB1)  //Mailbox 1 event
-		{
-			can_receive(&message, 1);
-			js_pos.x =message.data[0];
-			js_pos.y = message.data[1];
-			pos_to_duty_cycle(-js_pos.y);
-			controller_speed(js_pos.x);
-			printf("Encoder: %d \n\r",read_encoder());
-
+		{	
+			can_receive(&message,1);
+			if(message.id==101){
+				motor_init();
+			}
+			else{
+				js_pos.x =message.data[0];
+				js_pos.y = message.data[1];
+				shoot(message.data[2]);
+				pos_to_duty_cycle(-js_pos.y);
+				controller_speed(js_pos.x);
+				printf("Encoder: %d \n\r",read_encoder());
+			}
 		}
 		else if(can_sr & CAN_SR_MB2) //Mailbox 2 event
-		
-		{
-			can_receive(&message, 2);
-			js_pos.x =message.data[0];
-			js_pos.y = message.data[1];
-			pos_to_duty_cycle(-js_pos.y);
-			controller_speed(js_pos.x);
-			printf("Encoder: %d \n\r",read_encoder());
+		{	can_receive(&message,2);
+			if(message.id==101){
+				motor_init();
+			}
+			else{
+				js_pos.x =message.data[0];
+				js_pos.y = message.data[1];
+				shoot(message.data[2]);
+				pos_to_duty_cycle(-js_pos.y);
+				controller_speed(js_pos.x);
+				printf("Encoder: %d \n\r",read_encoder());
+			}
 			
 		}
-		else
-		{
+		else{
 			printf("CAN0 message arrived in non-used mailbox\n\r");
 		}
-
-		if(DEBUG_INTERRUPT)printf("message id: %d\n\r", message.id);
-		if(DEBUG_INTERRUPT)printf("message data length: %d\n\r", message.data_length);
-		for (int i = 0; i < message.data_length; i++)
-		{
-			if(DEBUG_INTERRUPT)printf("%d ", message.data[i]);
-		}
-		if(DEBUG_INTERRUPT)printf("\n\r");
+//
+		//if(DEBUG_INTERRUPT);//printf("message id: %d\n\r", message.id)
+		//if(DEBUG_INTERRUPT);//printf("message data length: %d\n\r", message.data_length)
+		//for (int i = 0; i < message.data_length; i++)
+		//{
+			//if(DEBUG_INTERRUPT)printf("%d ", message.data[i]);
+		
+		//if(DEBUG_INTERRUPT)printf("\n\r");
 	}
 	
 	if(can_sr & CAN_SR_MB0)
 	{
-		if(DEBUG_INTERRUPT) printf("CAN0 MB0 ready to send \n\r");
+		if(DEBUG_INTERRUPT) ;//printf("CAN0 MB0 ready to send \n\r")
 		
 	//Disable interrupt
 		CAN0->CAN_IDR = CAN_IER_MB0;
