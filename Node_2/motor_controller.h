@@ -12,11 +12,11 @@
 
 void motor_init(void);
 
-int16_t read_encoder(void);
+int8_t read_encoder(void);
 
 void set_direction_bit(int8_t reference);
 
-void controller_speed(int8_t pos_x);
+void controller_speed(int8_t u);
 
 void shoot(uint8_t pressed);
 

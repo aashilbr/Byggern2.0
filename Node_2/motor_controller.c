@@ -6,7 +6,6 @@
  */ 
 
 #include "motor_controller.h"
-#define DIFF_ENCODER 18000
 
 
 void motor_init(void){
@@ -62,9 +61,8 @@ void motor_init(void){
 
 }
 
-//sender man 0 til IO pinnen sender man 3.3V til releet
 
-int16_t read_encoder(void){
+int8_t read_encoder(void){
 	PIOD->PIO_CODR |= PIO_CODR_P0; //set !OE low to enable output of encoder
 	PIOD->PIO_CODR |= PIO_CODR_P2; //Set SEL low to get high byte
 	
@@ -84,26 +82,31 @@ int16_t read_encoder(void){
 	
 	int16_t encoder_data = (LSB | (MSB<<8));
 	if(encoder_data>0){encoder_data=0;}
-	if (encoder_data<-17000){encoder_data=-17000;}
-	
-	//Convert from 0 to 17 000 to -100,100
-	encoder_data = (-1)*(encoder_data)*200/17000 -100;
-	
-	return encoder_data;
+	if (encoder_data<-16500){encoder_data=-16500;}
+	//Convert from 0 to -17 000 to -100,100
+	int8_t data = (int8_t) ((encoder_data)*(-1)*200/16500 -100); //typecast
+	 //encoder_data = int(-1)*(encoder_data)*200/17000 -100;
+	//printf("Encoder: %d \n \r", encoder_data);
+	return data;
 }
 
 void set_direction_bit(int8_t reference){
-	if (reference>0){
+	if (reference > 0){
 		PIOD->PIO_SODR = PIO_SODR_P10;
+		printf("Right \n \r");
 	}
-	if(reference<=0){
+	if(reference<= 0){
 		PIOD->PIO_CODR = PIO_CODR_P10;
+		printf("Left \n \r");
 	}
 }
 
-void controller_speed(int8_t pos_x) {
-	set_direction_bit(pos_x);
-	int speed = (abs(pos_x))*(3000/100);
+void controller_speed(int8_t u) {
+	//int8_t error = js_pos.x-read_encoder();
+	set_direction_bit(u);
+	//DACC->DACC_CDR = 0x1000 |abs(u);
+	int speed = (abs(u))*(1500/100);
+	//printf("speed: %d error: %d \n \r", speed, error);
 	DACC->DACC_CDR = (0x1000 | speed);
 }
 

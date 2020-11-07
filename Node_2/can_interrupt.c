@@ -14,7 +14,7 @@
 #include "sam.h"
 #include "timer.h"
 #include "printf-stdarg.h"
-
+#include "pingpong_states.h"
 #include "can_controller.h"
 #include "joystick.h"
 #include "motor_controller.h"
@@ -41,28 +41,38 @@ void CAN0_Handler( void )
 			can_receive(&message,1);
 			if(message.id==101){
 				motor_init();
+				pingpong_state.score=0;
+				pid_init();
 			}
 			else{
 				js_pos.x =message.data[0];
 				js_pos.y = message.data[1];
-				shoot(message.data[2]);
-				pos_to_duty_cycle(-js_pos.y);
-				controller_speed(js_pos.x);
-				printf("Encoder: %d \n\r",read_encoder());
+				js_pos.shoot = message.data[2];
+				
+				//pos_to_duty_cycle(-js_pos.y);
+				//controller_speed(js_pos.x);
+				//count_score();
+				//printf("score: %d \n\r", pingpong_state.score);
+				//printf("Encoder%d\n\r", read_encoder());
 			}
 		}
 		else if(can_sr & CAN_SR_MB2) //Mailbox 2 event
 		{	can_receive(&message,2);
 			if(message.id==101){
 				motor_init();
+				pingpong_state.score=0;
+				pid_init();
 			}
 			else{
 				js_pos.x =message.data[0];
 				js_pos.y = message.data[1];
-				shoot(message.data[2]);
-				pos_to_duty_cycle(-js_pos.y);
-				controller_speed(js_pos.x);
-				printf("Encoder: %d \n\r",read_encoder());
+				js_pos.shoot = message.data[2];
+				//pos_to_duty_cycle(-js_pos.y);
+				//controller_speed(js_pos.x);
+				//count_score();
+				//printf("score: %d \n\r", pingpong_state.score);
+				//printf("Encoder%d\n\r", read_encoder());
+								
 			}
 			
 		}

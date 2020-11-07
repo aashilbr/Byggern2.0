@@ -6,14 +6,33 @@
  */ 
 
 #include "timer.h"
+#include "pid.h"
+#include "joystick.h"
 
-void timer_init(void){
-	//PMC->PMC_WPMR &= ~(ADC_WPMR_WPEN); //clear WPEN in PMC_WPMR
+void pwm2_init(void){
+	//PWM SIGNAL
+
+	//PMC->PMC_PCER0 |= 1<<28; //enable peripheral clock 27(Timer counter channel 0)
+	//
+	//TC0->TC_CHANNEL[1].TC_CMR |= TC_CMR_WAVE; //set WAVE bit in TC_CMR0 and all other bits to zero
+	//TC0->TC_CHANNEL[1].TC_CMR |= TC_CMR_WAVSEL_UP_RC; //UP mode with automatic trigger on RC compare
+	//TC0->TC_CHANNEL[1].TC_CMR |= TC_CMR_ACPA_CLEAR; //RA compare effect on TIOA
+	//TC0->TC_CHANNEL[1].TC_CMR |= TC_CMR_ACPC_SET; //RC compare effect on TIOA
+	//
+	//PIOB->PIO_PDR |=PIO_PDR_P0;//set PB25(PWM2) as output
+	//PIOB->PIO_ABSR |=PIO_ABSR_P0;//Peripheral select B
+	//
+	//TC0->TC_CHANNEL[1].TC_RA =88200;
+	//TC0->TC_CHANNEL[1].TC_RC = 840000;
+	//
+	//TC0->TC_CHANNEL[1].TC_CCR |= TC_CCR_CLKEN; // set CLKEN in TC_CCR0 -> enable the clock
+	//TC0->TC_CHANNEL[1].TC_CCR |= TC_CCR_SWTRG; //set software trigger
+	//
+	//TC0->TC_CHANNEL[1].TC_IER |= TC_IER_CPCS; //enable interrupt on RC compare
+	//NVIC_EnableIRQ(TC1_IRQn); //enable interrupts
+	
+	
 	PMC->PMC_PCER0 |= 1<<27; //enable peripheral clock 27(Timer counter channel 0)
-
-	TC0->TC_CHANNEL[0].TC_CCR |= TC_CCR_CLKEN; // set CLKEN in TC_CCR0 -> enable the clock 
-	//TC0->TC_CHANNEL[0].TC_CCR &= ~(TC_CCR_CLKDIS); //clear CLKDIS  in TC_CCR0 
-	TC0->TC_CHANNEL[0].TC_CCR |= TC_CCR_SWTRG; //set software trigger
 	
 	TC0->TC_CHANNEL[0].TC_CMR |= TC_CMR_WAVE; //set WAVE bit in TC_CMR0 and all other bits to zero
 	TC0->TC_CHANNEL[0].TC_CMR |= TC_CMR_WAVSEL_UP_RC; //UP mode with automatic trigger on RC compare 
@@ -21,30 +40,69 @@ void timer_init(void){
 	TC0->TC_CHANNEL[0].TC_CMR |= TC_CMR_ACPC_SET; //RC compare effect on TIOA
 	
 	PIOB->PIO_PDR |=PIO_PDR_P25;//set PB25(PWM2) as output
-	//PIOB->PIO_PDR |=PIO_PDR_P25;
-	//PIOB->PIO_OER |=PIO_OER_P25;
-	
-	
 	PIOB->PIO_ABSR |=PIO_ABSR_P25;//Peripheral select B
 	
 	TC0->TC_CHANNEL[0].TC_RA =88200;
 	TC0->TC_CHANNEL[0].TC_RC = 840000;
 	
-	//TIMER INTERRUPT
-	//PMC->PMC_PCK[0] |= PMC_PCK_PRES_CLK_1;
-	//TC0->TC_QIER |= TC_QIDR_QERR; //Enable QERR in QDEC Interrupt Enable Register 
-	//TC0->TC_BMR |= TC_BMR_QDEN; // Enables the QDEC
-	//TC0->TC_BMR |= TC_BMR_POSEN; // Enables the position measure on channel 0 and 1
-	//TC0->TC_CHANNEL[0].TC_CMR |= TC_CMR_TCCLKS_XC0;  //TC_CMR0 configured to select XC0 input ??
+	TC0->TC_CHANNEL[0].TC_CCR |= TC_CCR_CLKEN; // set CLKEN in TC_CCR0 -> enable the clock 
+	TC0->TC_CHANNEL[0].TC_CCR |= TC_CCR_SWTRG; //set software trigger
 	
-	/*//TC0->TC_RC=0x19a280;
-	TC0->TC_RA=
+	//
 	
-	CMR PRESCALAR
-	TC_RC OG RA
-*/
+	TC0->TC_CHANNEL[0].TC_IER |= TC_IER_CPCS; //enable interrupt on RC compare
+	NVIC_EnableIRQ(TC0_IRQn); //enable interrupts	
 }
 
+void timer_init(void){
+//
+	//PMC->PMC_PCER0 |= 1<<27; //enable peripheral clock 27(Timer counter channel 0)
+	//
+	//TC0->TC_CHANNEL[0].TC_CMR |= TC_CMR_WAVE; //set WAVE bit in TC_CMR0 and all other bits to zero
+	//TC0->TC_CHANNEL[0].TC_CMR |= TC_CMR_WAVSEL_UP_RC; //UP mode with automatic trigger on RC compare
+	//TC0->TC_CHANNEL[0].TC_CMR |= TC_CMR_ACPA_CLEAR; //RA compare effect on TIOA
+	//TC0->TC_CHANNEL[0].TC_CMR |= TC_CMR_ACPC_SET; //RC compare effect on TIOA
+	//
+	//PIOB->PIO_PDR |=PIO_PDR_P0;//set PB25(PWM2) as output
+	//PIOB->PIO_ABSR |=PIO_ABSR_P0;//Peripheral select B
+	//
+	//TC0->TC_CHANNEL[0].TC_RA =88200;
+	//TC0->TC_CHANNEL[0].TC_RC = 8400000;
+	//
+	//TC0->TC_CHANNEL[0].TC_CCR |= TC_CCR_CLKEN; // set CLKEN in TC_CCR0 -> enable the clock
+	//TC0->TC_CHANNEL[0].TC_CCR |= TC_CCR_SWTRG; //set software trigger
+	//
+	//
+	//TC0->TC_CHANNEL[0].TC_IER |= TC_IER_CPCS; //enable interrupt on RC compare
+	//NVIC_EnableIRQ(TC0_IRQn); //enable interrupts
+
+	////TIMER INTERRUPT
+	PMC->PMC_PCER0 |= 1<<27; //enable peripheral clock 28(Timer counter channel 1)
+	
+	//NVIC_EnableIRQ(TC0_IRQn); //enable interrupts
+		
+	PIOB->PIO_PDR |=PIO_PDR_P0;//set PB25(PWM2) as output
+	PIOB->PIO_ABSR |=PIO_ABSR_P0;//Peripheral select B
+	
+	
+	TC0->TC_CHANNEL[1].TC_CMR |= TC_CMR_TCCLKS_TIMER_CLOCK1;
+	TC0->TC_CHANNEL[1].TC_CMR |= TC_CMR_WAVE; //set WAVE bit in TC_CMR0 and all other bits to zero
+	TC0->TC_CHANNEL[1].TC_CMR |= TC_CMR_WAVSEL_UP_RC; //UP mode with automatic trigger on RC compare
+	TC0->TC_CHANNEL[1].TC_CMR |= TC_CMR_ACPA_CLEAR; //RA compare effect on TIOA
+	TC0->TC_CHANNEL[1].TC_CMR |= TC_CMR_ACPC_SET; //RC compare effect on TIOA
+	
+	//TC0->TC_CHANNEL[1].TC_RA =88200;
+	TC0->TC_CHANNEL[1].TC_RC = 840000; //set frequency to 60Hz
+		
+	//TC0->TC_CHANNEL[1].TC_IER |= TC_IER_CPCS; //enable interrupt on RC compare
+		
+	TC0->TC_CHANNEL[1].TC_CCR |= TC_CCR_SWTRG; //set software trigger
+	TC0->TC_CHANNEL[1].TC_CCR |= TC_CCR_CLKEN; // set CLKEN in TC_CCR0 -> enable the clock
+	////NVIC_DisableIRQ(TC1_IRQn);
+	////NVIC_ClearPendingIRQ(TC1_IRQn);
+	////NVIC_SetPriority(TC1_IRQn,1);	
+
+}
 
 void set_duty_cycle(double percent){
 	//uint8_t period = TC0->TC_CHANNEL[0].TC_RC;
@@ -67,3 +125,18 @@ void pos_to_duty_cycle(int8_t pos){
 	set_duty_cycle(percent);
 }
 
+
+void TC0_Handler(){
+	int32_t status = TC0->TC_CHANNEL[0].TC_SR;
+	//pid.last_error = pid.error;
+	pid.ref =(double) js_pos.x;
+	pid.measured =(double) read_encoder();
+	//pid.error = ref - measured;
+	//pid.sum_error += pid.error;
+	//double u = pid.p_factor*pid.error+pid.dt*pid.i_factor*pid.sum_error;//(pid.d_factor/pid.dt)*(pid.error-pid.last_error)
+	//pid.u = (int8_t) u;
+	/*if (abs(pid.u) > 200) {
+		pid.u = 200;
+	}*/
+	//;
+}

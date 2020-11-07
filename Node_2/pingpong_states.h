@@ -17,6 +17,7 @@ typedef struct pingpong_s{
 }pingpong;
 
 pingpong pingpong_state;
+void init_ppstate();
 
 void count_score(void);
 

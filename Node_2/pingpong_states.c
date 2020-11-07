@@ -6,6 +6,11 @@
  */ 
 #include "pingpong_states.h"
 
+void init_ppstate(){
+	pingpong_state.ball_detected=0;
+	pingpong_state.score =0;
+}
+
 void count_score(void){
 	if(pingpong_state.ball_detected==0 && read_ir_signal()<THRESHOLD_ADC){
 		pingpong_state.score++;
