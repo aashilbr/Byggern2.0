@@ -136,6 +136,9 @@ void oled_menu_high_score_sub(void);
 void oled_menu_set_brightness(void);
 
 
+void oled_menu_difficulty(void);
+
+
 void oled_set_brightness_lvl(uint8_t lvl); //not used
 
 /**
@@ -152,6 +155,9 @@ void oled_set_brightness_lvl_med(void);
 * @brief Sets the brightness level on the OLED to maximum value.
 */
 void oled_set_brightness_lvl_max(void);
+
+
+void oled_calibrate_joystick(void);
 
 
 

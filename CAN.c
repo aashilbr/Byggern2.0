@@ -6,6 +6,7 @@
  */ 
 
 #include "CAN.h"
+volatile uint8_t can_flag = 0;
 
 uint8_t CAN_init(uint8_t mode){
 	uint8_t value;
@@ -50,6 +51,15 @@ uint8_t CAN_init(uint8_t mode){
 		printf("MCP2515 is NOT in correct mode!\n\r");
 		return 1;	
 	}
+	
+	mcp_write(MCP_CANINTE, MCP_RX_INT);
+	//ENABLE INTERRUPS
+	cli();
+	MCUCR |= (1<<ISC01);//activate interrupt on falling edge
+	GICR |= (1<<INT0); //external interrupt enabled
+	DDRD &= ~(1<<PD2); //set int0 as input
+	sei();
+	
 	return 0;
 }
 
@@ -72,7 +82,7 @@ uint8_t CAN_transmit_request(void){
 }
 
 void CAN_receive_message(Message *message){
-	uint8_t receive_buffer = (mcp_read(MCP_CANINTF) & 0x3) -1; //check which buffer received a buffer
+	uint8_t receive_buffer = (mcp_read(MCP_CANINTF) & 0x3) -1; //check which buffer received a message
 	
 	uint8_t status = mcp_read_status();
 	//printf("status %d", status);
@@ -83,4 +93,36 @@ void CAN_receive_message(Message *message){
 	for (uint8_t i = 0; i < message->length; i++) {
 		message->data[i] = mcp_read((0x66+(16*receive_buffer))+ i);//MCP_RXB0D0
 	}
+	mcp_bit_modify(MCP_CANINTF, 1, 0);
+	mcp_bit_modify(MCP_CANINTF, 2, 0);
+}
+
+ISR(INT0_vect){
+	can_flag=1;
+}
+
+int check_CAN_interrupt(){
+	if(can_flag){
+		can_flag = 0;
+		
+		return 1;
+	}
+	return 0;
+}
+
+void oled_easy_pid(void){
+	Message message;
+	message.ID=404;
+	message.data[0]=1;
+	message.length=1;
+	CAN_send_message(&message);
+	
+}
+
+void oled_hard_pid(void){
+	Message message;
+	message.ID=404;
+	message.data[0]=0;
+	message.length=1;
+	CAN_send_message(&message);
 }

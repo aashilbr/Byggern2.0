@@ -45,4 +45,10 @@ uint8_t CAN_transmit_request(void);
 */
 void CAN_receive_message(Message *message);
 
+void oled_easy_pid(void);
+
+void oled_hard_pid(void);
+
+int check_CAN_interrupt(void);
+
 #endif /* CAN_H_ */

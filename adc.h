@@ -33,7 +33,7 @@ pos_js joystick;
 * direction:
 * @brief An enum containing the direction of the joystick.
 */
-typedef enum {LEFT, RIGHT, UP, DOWN, NEUTRAL, PRESSED, BACK} direction;
+typedef enum {LEFT, RIGHT, UP, DOWN, NEUTRAL, PRESSED, BACK, GAME_OVER} direction; 
 
 /**
 * @brief Initializes the ADC.

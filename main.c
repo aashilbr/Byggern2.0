@@ -24,6 +24,7 @@
 #include "MCP2515_driver.h"
 #include "CAN.h"
 #include "pingpong.h"
+#include "timer.h"
 
 
 static void menu_no_action(void){
@@ -75,18 +76,18 @@ static Menu_node m_menu_nodes[]={
 		oled_menu_set_brightness
 	},
 	{
-		"Music",
+		"Set Difficulty",
 		m_menu_nodes + 2,
 		m_menu_nodes + 14,
 		m_menu_nodes + 7,
-		menu_no_action
+		oled_menu_difficulty
 	},
 	{
 		"Calibrate",
 		m_menu_nodes + 2,
 		NULL,
 		NULL,
-		menu_no_action//adc_calibrate()
+		oled_calibrate_joystick
 	},
 	{
 		"Tic Tac Toe - play",
@@ -103,7 +104,7 @@ static Menu_node m_menu_nodes[]={
 		pingpong_play
 	},
 	{
-		"High score",
+		"High score",//!!!!!!!!!!!!!!
 		m_menu_nodes + 4,
 		NULL,
 		NULL,
@@ -131,18 +132,18 @@ static Menu_node m_menu_nodes[]={
 		oled_set_brightness_lvl_max
 	},
 	{
-		"ON",
+		"Easy",
 		m_menu_nodes + 6,
 		NULL,
 		m_menu_nodes + 15,
-		menu_no_action
+		oled_easy_pid
 	},
 	{
-		"OFF",
+		"Hard",
 		m_menu_nodes + 6,
 		NULL,
 		NULL,
-		menu_no_action
+		oled_hard_pid
 	}
 };
 
@@ -165,7 +166,7 @@ int main(void)
 	oled_init();
 	SPI_master_init();
 	CAN_init(MODE_NORMAL);
-	
+	timer_init();
 
 	/*
 	oled_clear_all();
@@ -199,7 +200,7 @@ int main(void)
 	
 		
 	
-	Message message;
+	//Message message;
 	
 	adc_calibrate(&joystick);
 	

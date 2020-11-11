@@ -7,6 +7,7 @@
 
 #include "adc.h"
 #include "pwm_clock.h"
+#include "pingpong.h"
 #include <avr/io.h>
 
 void adc_init (void){
@@ -61,6 +62,7 @@ direction adc_joystick_dir(pos_js *js){
 	if (js->y>THRESHOLD&&js->y>abs(js->x))	{return UP;}
 	if (!adc_joystick_read_button()){return PRESSED;}
 	if (adc_read_button_touch_l()){return BACK;}
+	//if (check_if_game_over()){return GAME_OVER;}
 	else {return NEUTRAL;}	 //if (js->x==0&&js->y==0)
 }
 

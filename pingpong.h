@@ -10,7 +10,7 @@
 #define PINGPONG_H_
 
 void pingpong_play(void);
-
+int check_if_game_over(void);
 
 
 #endif /* PINGPONG_H_ */

@@ -187,6 +187,12 @@
     <Compile Include="oled.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="pingpong.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="pingpong.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="pwm_clock.c">
       <SubType>compile</SubType>
     </Compile>
@@ -209,6 +215,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="tictactoe.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="timer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="timer.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="uart.c">

@@ -39,7 +39,7 @@ void oled_menu_settings(void) {
 	oled_pos(2,4);
 	oled_print("Brightness");
 	oled_pos(4,4);
-	oled_print("Music");
+	oled_print("Set difficulty");
 	oled_pos(6,4);
 	oled_print("Calibrate joystick");
 }
@@ -105,7 +105,15 @@ void oled_menu_set_brightness(void) {
 	oled_print("Max");
 }
 
-
+void oled_menu_difficulty(void) {
+	oled_clear_all();
+	oled_pos(0,4);
+	oled_print("SET DIFFICULTY:");
+	oled_pos(2,4);
+	oled_print("Easy");
+	oled_pos(4,4);
+	oled_print("Hard");
+}
 
 void oled_set_brightness_lvl_min(void){
 	oled_set_brightness_lvl(0x00); 
@@ -125,6 +133,8 @@ void oled_set_brightness_lvl_max(void){
 	oled_pos(2,23);
 	oled_print("THERE YOU GO :)");
 }
+
+
 
 
 void oled_navigate(direction dir, state *p_node) {
@@ -170,6 +180,15 @@ void oled_navigate(direction dir, state *p_node) {
 			break;	
 		case NEUTRAL:
 			break;	
+		case GAME_OVER:
+			if (p_node->current_node->p_parent!=NULL){
+				oled_clear_all();
+				p_node->current_node = p_node->current_node->p_parent;
+				p_node->menu_pos=1;
+				p_node->current_node->action();
+				oled_frame(p_node->menu_pos*2);
+				_delay_ms(1000);
+			}
 		default:
 			break;
 	}
@@ -196,4 +215,27 @@ void menu_init(state * start_state){
 	start_state->menu_pos=1;
 	start_state->current_node->action();
 	oled_frame(2);
+}
+
+void oled_calibrate_joystick(void){
+	oled_clear_all();
+	oled_pos(3,50);
+	oled_print("WAIT");
+	_delay_ms(2000);
+	oled_pos(4,50);
+	oled_print("3");
+	_delay_ms(2000);
+	oled_clear_line(4);
+	oled_print("2");
+	adc_calibrate(&joystick);
+	_delay_ms(2000);
+	oled_clear_line(4);
+	oled_print("1");
+	_delay_ms(2000);
+	oled_clear_line(4);
+	oled_clear_line(3);
+	oled_pos(4,7);
+	oled_print("Joystick calibrated <3");
+	
+	
 }
