@@ -10,7 +10,7 @@
 volatile Pid pid;
 
 void pid_init(void){
-	pid.p_factor =14;  
+	pid.p_factor =9;  
 	pid.i_factor = 1;
 	pid.d_factor = 3;
 	pid.error = 0;
@@ -33,8 +33,8 @@ void pid_error_init(){
 
 void pid_regulator(){
 	pid.last_error = pid.error;
-	pid.error = (pid.ref - pid.measured);
-	//printf("error: %d ref:%d measured:%d\n\r", pid.error,pid.ref,pid.measured);
+	pid.error =(int16_t)(pid.ref - pid.measured);
+	printf("error: %d ref:%d measured:%d\n\r", pid.error,pid.ref,pid.measured);
 	pid.sum_error += pid.error;
 	int u = pid.p_factor*pid.error+pid.i_factor*pid.sum_error+(pid.d_factor)*(pid.error-pid.last_error);
 	pid.u = u;
@@ -76,6 +76,6 @@ int get_u(void){
 
 void TC0_Handler(){
 	int32_t status = TC0->TC_CHANNEL[0].TC_SR;
-	pid.ref = js_pos.x;
+	pid.ref = 0.9*js_pos.x;
 	pid.measured = read_encoder();
 }
