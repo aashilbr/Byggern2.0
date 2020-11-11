@@ -83,6 +83,7 @@ int8_t read_encoder(void){
 	int16_t encoder_data = (LSB | (MSB<<8));
 	if(encoder_data>0){encoder_data=0;}
 	if (encoder_data<-16500){encoder_data=-16500;}
+		
 	//Convert from 0 to -17 000 to -100,100
 	int8_t data = (int8_t) ((encoder_data)*(-1)*200/16500 -100); //typecast
 	 //encoder_data = int(-1)*(encoder_data)*200/17000 -100;
@@ -90,22 +91,23 @@ int8_t read_encoder(void){
 	return data;
 }
 
-void set_direction_bit(int8_t reference){
+void set_direction(int reference){ 
 	if (reference > 0){
 		PIOD->PIO_SODR = PIO_SODR_P10;
-		printf("Right \n \r");
+		//printf("Right \n \r");
 	}
 	if(reference<= 0){
 		PIOD->PIO_CODR = PIO_CODR_P10;
-		printf("Left \n \r");
+		//printf("Left \n \r");
 	}
 }
 
-void controller_speed(int8_t u) {
+void controller_speed(int u) {//endre navn 
 	//int8_t error = js_pos.x-read_encoder();
-	set_direction_bit(u);
+	set_direction(u);
+	//printf("u:%d\n\r",u);
 	//DACC->DACC_CDR = 0x1000 |abs(u);
-	int speed = (abs(u))*(1500/100);
+	int speed = abs(u);
 	//printf("speed: %d error: %d \n \r", speed, error);
 	DACC->DACC_CDR = (0x1000 | speed);
 }
@@ -122,3 +124,4 @@ void shoot(uint8_t pressed){
 	}
 
 }
+

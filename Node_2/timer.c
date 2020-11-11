@@ -125,18 +125,3 @@ void pos_to_duty_cycle(int8_t pos){
 	set_duty_cycle(percent);
 }
 
-
-void TC0_Handler(){
-	int32_t status = TC0->TC_CHANNEL[0].TC_SR;
-	//pid.last_error = pid.error;
-	pid.ref =(double) js_pos.x;
-	pid.measured =(double) read_encoder();
-	//pid.error = ref - measured;
-	//pid.sum_error += pid.error;
-	//double u = pid.p_factor*pid.error+pid.dt*pid.i_factor*pid.sum_error;//(pid.d_factor/pid.dt)*(pid.error-pid.last_error)
-	//pid.u = (int8_t) u;
-	/*if (abs(pid.u) > 200) {
-		pid.u = 200;
-	}*/
-	//;
-}

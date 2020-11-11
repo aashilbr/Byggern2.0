@@ -16,18 +16,22 @@ typedef struct Pid_s{
 	double p_factor;
 	double i_factor;
 	double d_factor;
-	double dt;
-	double error;
-	double sum_error;
-	double last_error;
-	int8_t u;
+	int8_t error;
+	int8_t sum_error;
+	int8_t last_error;
+	int u;
 	int8_t ref;
 	int8_t measured;	
 
 }Pid;
 
-Pid pid;
+int get_u(void); 
+
 void pid_init();
 
 void pid_regulator();
+
+void set_pid_difficulty(uint8_t diff);
+void pid_error_init();
+
 #endif  PID.H_H_ 

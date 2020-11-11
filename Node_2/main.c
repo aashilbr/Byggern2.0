@@ -55,13 +55,16 @@ int main(void)
 		shoot(js_pos.shoot);
 		pos_to_duty_cycle(-js_pos.y);
 		pid_regulator();
-		controller_speed(pid.u);
+		controller_speed(get_u());
+		check_if_game_over();
+		
+		
 		//printf("x: %d y: %d shoot:%d \n\r",js_pos.x,-js_pos.y,js_pos.shoot);
-		printf("u: %d sum: %f error:%f \n\r",pid.u,pid.sum_error,pid.error);
+		//printf("u: %d sum: %f error:%d \n\r",pid.u,pid.sum_error,pid.error);
 		//controller_speed(js_pos.x);
-		printf("Encoder%f \n\r", read_encoder());
-		printf("x: %d\n\r", js_pos.x);
-		count_score();
+		//printf("Encoder%d\n\r", pid.measured);
+		//printf("x: %d\n\r", pid.ref);
+		
 		//int d = (pid.d_factor/pid.dt)*(pid.error-pid.last_error);
 		//printf("d: %d \n\r", d);
     }
