@@ -61,11 +61,11 @@ void oled_menu_high_score_sub(void) {
 	oled_pos(0,4);
 	oled_print("High score: ");
 	char score[10];
-	sprintf(score, "%d", (int) xmem_read(0x1801));
+	sprintf(score, "%d", (int) xmem_read(0x1800));
 	oled_pos(0,70);
 	oled_print(score);
 	oled_pos(2,4);
-	oled_print("Reset high score");
+	oled_print("Reset");
 }
 
 void oled_frame(uint8_t line){
@@ -148,6 +148,8 @@ void oled_menu_stearing(void) {
 	oled_print("Joystick");
 	oled_pos(4,4);
 	oled_print("Sliders");
+	oled_pos(6,4);
+	oled_print("Memory");
 }
 
 

@@ -215,7 +215,7 @@ static Menu_node m_menu_nodes[]={
 	{
 		"Brightness",
 		m_menu_nodes + 2,
-		m_menu_nodes + 11,
+		m_menu_nodes + 10,
 		m_menu_nodes + 6,
 		oled_menu_set_brightness
 	},
@@ -251,14 +251,14 @@ static Menu_node m_menu_nodes[]={
 		"MIN",
 		m_menu_nodes + 5,
 		NULL,
-		m_menu_nodes + 12,
+		m_menu_nodes + 11,
 		oled_set_brightness_lvl_min
 	},
 	{
 		"Medium",
 		m_menu_nodes + 5,
 		NULL,
-		m_menu_nodes + 13,
+		m_menu_nodes + 12,
 		oled_set_brightness_lvl_med
 	},
 	{
@@ -293,7 +293,7 @@ static Menu_node m_menu_nodes[]={
 		"Slider stearing",
 		m_menu_nodes + 8,
 		NULL,
-		NULL,
+		m_menu_nodes + 18,
 		pingpong_play_with_sliders
 	},
 	{
@@ -302,6 +302,13 @@ static Menu_node m_menu_nodes[]={
 		NULL,
 		NULL,
 		reset_highscore
+	},
+	{
+		"Memory program",
+		m_menu_nodes + 8,
+		NULL,
+		NULL,
+		pingpong_move_with_memory
 	}
 };
 

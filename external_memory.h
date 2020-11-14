@@ -37,4 +37,12 @@ uint8_t xmem_read(uint16_t addr);
 
 
 
+void xmem_save_movement(int8_t x_pos, int8_t y_pos, uint8_t button, uint8_t nr);
+
+int8_t xmem_read_x_movement(uint8_t nr);
+int8_t xmem_read_y_movement(uint8_t nr);
+uint8_t xmem_read_button_movement(uint8_t nr);
+int xmem_check_storing_condition(int count, int frequency);
+void xmem_write_size(int data_store_nr);
+int xmem_get_size(void);
 #endif

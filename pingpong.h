@@ -22,5 +22,7 @@ void pingpong_play_with_joystick(void);
 void pingpong_save_highscore(uint8_t score);
 
 void reset_highscore(void);
+void pingpong_move_with_memory(void);
+
 
 #endif /* PINGPONG_H_ */
