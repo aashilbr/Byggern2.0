@@ -254,7 +254,7 @@ void ttt_menu_game(){
 	uint8_t* current_index=0;
 	Turn* turn = X_PLAY;
 	pos_js joystick;
-	adc_calibrate(&joystick);
+	adc_calibrate_joystick(&joystick);
 	ttt_print_line(current_index);
 	while(adc_joystick_dir(&joystick)!=BACK){
 		adc_joystick_pos(&joystick);

@@ -26,11 +26,155 @@
 #include "pingpong.h"
 #include "timer.h"
 
+#include <avr/pgmspace.h>
 
 static void menu_no_action(void){
 	oled_print("Activation \n");
 	
 }
+//
+//static Menu_node m_menu_nodes[]={
+	//{
+		//"MAIN MENU",
+		//NULL,
+		//m_menu_nodes + 1,
+		//NULL,
+		//oled_menu_main
+	//},
+	//{
+		//"GAMES",
+		//m_menu_nodes + 0,
+		//m_menu_nodes + 3,
+		//m_menu_nodes + 2,
+		//oled_menu_games
+	//},
+	//{
+		//"SETTINGS",
+		//m_menu_nodes + 0,
+		//m_menu_nodes + 5,
+		//NULL,
+		//oled_menu_settings
+	//},
+	//{
+		//"Tic Tac Toe",
+		//m_menu_nodes + 1,
+		//NULL,
+		//m_menu_nodes + 4,
+		//ttt_menu_game
+	//},
+	//{
+		//"Ping Pong",
+		//m_menu_nodes + 1,
+		//m_menu_nodes + 9,
+		//NULL,
+		//oled_menu_games_sub
+	//},
+	//{
+		//"Brightness",
+		//m_menu_nodes + 2,
+		//m_menu_nodes + 11,
+		//m_menu_nodes + 6,
+		//oled_menu_set_brightness
+	//},
+	//{
+		//"Set Difficulty",
+		//m_menu_nodes + 2,
+		//m_menu_nodes + 14,
+		//m_menu_nodes + 7,
+		//oled_menu_difficulty
+	//},
+	//{
+		//"Calibrate",
+		//m_menu_nodes + 2,
+		//NULL,
+		//NULL,
+		//oled_calibrate_joystick
+	//},
+	//{
+		//"Tic Tac Toe - play",
+		//m_menu_nodes + 3,
+		//NULL,
+		//NULL,
+		//ttt_menu_game
+	//},
+	//{
+		//"Stearing",
+		//m_menu_nodes + 4,
+		//m_menu_nodes + 16,
+		//NULL,
+		//oled_menu_stearing
+	//},
+	//{
+		//"High score",//!!!!!!!!!!!!!!
+		//m_menu_nodes + 4,
+		//NULL,
+		//NULL,
+		//oled_menu_high_score_sub
+	//},
+	//{
+		//"MIN",
+		//m_menu_nodes + 5,
+		//NULL,
+		//m_menu_nodes + 12,
+		//oled_set_brightness_lvl_min
+	//},
+	//{
+		//"Medium",
+		//m_menu_nodes + 5,
+		//NULL,
+		//m_menu_nodes + 13,
+		//oled_set_brightness_lvl_med
+	//},
+	//{
+		//"MAX",
+		//m_menu_nodes + 5,
+		//NULL,
+		//NULL,
+		//oled_set_brightness_lvl_max
+	//},
+	//{
+		//"Easy",
+		//m_menu_nodes + 6,
+		//NULL,
+		//m_menu_nodes + 15,
+		//oled_easy_pid
+	//},
+	//{
+		//"Hard",
+		//m_menu_nodes + 6,
+		//NULL,
+		//NULL,
+		//oled_hard_pid
+	//},
+	//{
+		//"Joystick stearing",
+		//m_menu_nodes + 9,
+		//m_menu_nodes + 18,
+		//m_menu_nodes + 17,
+		//oled_menu_joystick_info
+	//},
+	//{
+		//"Slider stearing",
+		//m_menu_nodes + 9,
+		//m_menu_nodes + 19,
+		//NULL,
+		//oled_menu_slider_info
+	//},
+	//{
+		//"Play Joystick",
+		//m_menu_nodes + 4,
+		//NULL,
+		//m_menu_nodes + 19,
+		//pingpong_play_with_joystick
+	//},
+	//{
+		//"Play sliders",
+		//m_menu_nodes + 4,
+		//NULL,
+		//NULL,
+		//pingpong_play_with_sliders
+	//}
+//};
 
 static Menu_node m_menu_nodes[]={
 	{
@@ -57,14 +201,14 @@ static Menu_node m_menu_nodes[]={
 	{
 		"Tic Tac Toe",
 		m_menu_nodes + 1,
-		m_menu_nodes + 8,
+		NULL,
 		m_menu_nodes + 4,
-		oled_menu_games_sub
+		ttt_menu_game
 	},
 	{
 		"Ping Pong",
 		m_menu_nodes + 1,
-		m_menu_nodes + 9,
+		m_menu_nodes + 8,
 		NULL,
 		oled_menu_games_sub
 	},
@@ -78,7 +222,7 @@ static Menu_node m_menu_nodes[]={
 	{
 		"Set Difficulty",
 		m_menu_nodes + 2,
-		m_menu_nodes + 14,
+		m_menu_nodes + 13,
 		m_menu_nodes + 7,
 		oled_menu_difficulty
 	},
@@ -90,18 +234,11 @@ static Menu_node m_menu_nodes[]={
 		oled_calibrate_joystick
 	},
 	{
-		"Tic Tac Toe - play",
-		m_menu_nodes + 3,
-		NULL,
-		NULL,
-		ttt_menu_game
-	},
-	{
-		"Play",
+		"Stearing",
 		m_menu_nodes + 4,
-		NULL,
-		m_menu_nodes + 10,
-		pingpong_play
+		m_menu_nodes + 15,
+		m_menu_nodes + 9,
+		oled_menu_stearing
 	},
 	{
 		"High score",//!!!!!!!!!!!!!!
@@ -135,7 +272,7 @@ static Menu_node m_menu_nodes[]={
 		"Easy",
 		m_menu_nodes + 6,
 		NULL,
-		m_menu_nodes + 15,
+		m_menu_nodes + 14,
 		oled_easy_pid
 	},
 	{
@@ -144,6 +281,20 @@ static Menu_node m_menu_nodes[]={
 		NULL,
 		NULL,
 		oled_hard_pid
+	},
+	{
+		"Joystick stearing",
+		m_menu_nodes + 8,
+		NULL,
+		m_menu_nodes + 16,
+		pingpong_play_with_joystick
+	},
+	{
+		"Slider stearing",
+		m_menu_nodes + 8,
+		NULL,
+		NULL,
+		pingpong_play_with_sliders
 	}
 };
 
@@ -155,10 +306,7 @@ const Menu_node * menu_root_node(){
 Grid_state game_board[]={NONE,NONE,NONE,NONE,NONE,NONE,NONE,NONE,NONE};
 
 
-int main(void)
-{
-    
-
+int main(void){
 	UART_Init(MYUBRR);
 	xmem_init();
 	pwm_init();
@@ -167,61 +315,20 @@ int main(void)
 	SPI_master_init();
 	CAN_init(MODE_NORMAL);
 	timer_init();
-
-	/*
-	oled_clear_all();
-	
-	pos_js joystick;
-	adc_calibrate(&joystick);
-	state current_state;
-	current_state.current_node=menu_root_node();
-	menu_init(&current_state);
-	
-	Message mess;
-	mess.ID = 0b10101010000;
-	mess.data[0]=1;
-	mess.data[1]=2;
-	mess.data[2]=3;
-	mess.length = 3;
-	
-	*/
-	
-	//printf("%x", mcp_read(MCP_CANINTF));
-// 	
-	
-	//printf("%x", mcp_read(MCP_CANSTAT));
 	
 	
 	oled_clear_all();
-	adc_calibrate(&joystick);
+	adc_calibrate_joystick(&joystick);
 	state current_state;
 	current_state.current_node=menu_root_node();
-	menu_init(&current_state);
+	menu_init(&current_state);	
+	adc_calibrate_joystick(&joystick);
 	
-		
-	
-	//Message message;
-	
-	adc_calibrate(&joystick);
-	
-	//CAN_receive_message(&m);
 	while(1){
 		
 		adc_joystick_pos(&joystick);
 		oled_navigate(adc_joystick_dir(&joystick), &current_state);
 		
-		/*
-		message.data[0]=joystick.x;
-		message.data[1]=joystick.y;
-		message.length=2;
-		
-		printf("X_j: %d \n \r", joystick.x);
-		
-		CAN_send_message(&message);
-		
-		*/
-		
-		//printf("X: %d \n \r", message.data[0]);
 	}
  	return 0;
 }

@@ -52,6 +52,8 @@ uint8_t CAN_init(uint8_t mode){
 		return 1;	
 	}
 	
+	
+	//mcp_bit_modify(MCP_CANINTF,0b00000011,MCP_RX_INT);
 	mcp_write(MCP_CANINTE, MCP_RX_INT);
 	//ENABLE INTERRUPS
 	cli();
@@ -104,7 +106,6 @@ ISR(INT0_vect){
 int check_CAN_interrupt(){
 	if(can_flag){
 		can_flag = 0;
-		
 		return 1;
 	}
 	return 0;
@@ -124,5 +125,15 @@ void oled_hard_pid(void){
 	message.ID=404;
 	message.data[0]=0;
 	message.length=1;
+	CAN_send_message(&message);
+}
+
+
+CAN_send_pos(int8_t x, int8_t y,uint8_t button ){
+	Message message;
+	message.data[0]=x;
+	message.data[1]=y;
+	message.data[2]=button;
+	message.length=3;
 	CAN_send_message(&message);
 }

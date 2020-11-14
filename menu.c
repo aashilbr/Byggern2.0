@@ -136,6 +136,45 @@ void oled_set_brightness_lvl_max(void){
 
 
 
+void oled_menu_stearing(void) {
+	oled_clear_all();
+	oled_pos(0,4);
+	oled_print("Stearing mechanism:");
+	oled_pos(2,4);
+	oled_print("Joystick");
+	oled_pos(4,4);
+	oled_print("Sliders");
+}
+
+
+
+//void oled_menu_joystick_info(void) {
+	//oled_clear_all();
+	//oled_pos(0,4);
+	//oled_print("Move with x");
+	//oled_pos(2,4);
+	//oled_print("Turn with y");
+	//oled_pos(4,4);
+	//oled_print("Shoot with right button");
+	//oled_pos(6,4);
+	//oled_print("Push joystick button to start");
+//}
+//
+//
+//
+//void oled_menu_slider_info(void) {
+	//oled_clear_all();
+	//oled_pos(0,4);
+	//oled_print("Move with right slider");
+	//oled_pos(2,4);
+	//oled_print("Turn with left slider");
+	//oled_pos(4,4);
+	//oled_print("Shoot with right button");
+	//oled_pos(6,4);
+	//oled_print("Push joystick button to start");
+//}
+
+
 
 void oled_navigate(direction dir, state *p_node) {
 	switch (dir) {
@@ -227,7 +266,7 @@ void oled_calibrate_joystick(void){
 	_delay_ms(2000);
 	oled_clear_line(4);
 	oled_print("2");
-	adc_calibrate(&joystick);
+	adc_calibrate_joystick(&joystick);
 	_delay_ms(2000);
 	oled_clear_line(4);
 	oled_print("1");

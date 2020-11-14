@@ -159,6 +159,10 @@ void oled_set_brightness_lvl_max(void);
 
 void oled_calibrate_joystick(void);
 
+void oled_menu_stearing(void);
 
+void oled_menu_joystick_info(void) ;
+
+void oled_menu_slider_info(void);
 
 #endif /* MENU_H_ */

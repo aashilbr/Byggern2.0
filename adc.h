@@ -48,6 +48,14 @@ void adc_init (void);
 */
 uint8_t adc_read(uint8_t channel); //volatile
 
+uint8_t adc_read_joystick_x();
+
+uint8_t adc_read_joystick_y();
+
+uint8_t adc_read_slider_left();
+
+uint8_t adc_read_slider_right();
+
 /**
 * @brief Reads the value of the joystick button.
 * @return Returns 0 if the joystick button is pressed, 1 otherwise.
@@ -72,8 +80,11 @@ uint8_t adc_read_button_touch_r(void);
 * @details Calibrates the joystick such that when the
 * joystick is in neutral, its x and y values are 0.
 */
-void adc_calibrate(pos_js *js);
+void adc_calibrate_joystick(pos_js *js);
 
+void adc_joystick_pos(pos_js* js);
+
+void adc_slider_pos(pos_js* js);
 /**
 * @brief Gets the direction of the joystick.
 * @param [in] js A pointer to a pos_js object.

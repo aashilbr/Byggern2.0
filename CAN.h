@@ -6,6 +6,9 @@
  */
 
 #include "MCP2515_driver.h"
+#include <avr/io.h>
+#include <avr/interrupt.h>
+
 
 #ifndef CAN_H_
 #define CAN_H_
@@ -50,5 +53,7 @@ void oled_easy_pid(void);
 void oled_hard_pid(void);
 
 int check_CAN_interrupt(void);
+
+CAN_send_pos(int8_t x, int8_t y,uint8_t button );
 
 #endif /* CAN_H_ */
