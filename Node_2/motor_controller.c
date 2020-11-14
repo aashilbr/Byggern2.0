@@ -82,10 +82,10 @@ int8_t read_encoder(void){
 	
 	int16_t encoder_data = (LSB | (MSB<<8));
 	if(encoder_data>0){encoder_data=0;}
-	if (encoder_data<-16500){encoder_data=-16500;}
+	if (encoder_data<-17000){encoder_data=-16700;}
 		
 	//Convert from 0 to -17 000 to -100,100
-	int8_t data = (int8_t) ((encoder_data)*(-1)*200/16500 -100); //typecast
+	int8_t data = (int8_t) ((encoder_data)*(-1)*200/17000 -100); //typecast
 	 //encoder_data = int(-1)*(encoder_data)*200/17000 -100;
 	//printf("Encoder: %d \n \r", encoder_data);
 	return data;

@@ -9,7 +9,7 @@
 #ifndef PINGPONG_STATES_H_
 #define PINGPONG_STATES_H_
 
-#define THRESHOLD_ADC 500
+#define THRESHOLD_ADC 1000
 
 typedef struct pingpong_s{
 	int ball_detected;

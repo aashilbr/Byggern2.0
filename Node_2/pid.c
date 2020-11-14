@@ -43,14 +43,14 @@ void pid_regulator(){
 
 void set_pid_difficulty(uint8_t diff){
 	if (diff==0){//hard
-		pid.p_factor=1;
+		pid.p_factor=6;
 		pid.i_factor=1;
-		pid.d_factor=1;
+		pid.d_factor=2;
 	}
 	else{//easy
-		pid.p_factor=15;
-		pid.i_factor=0.05;
-		pid.d_factor=0;
+		pid.p_factor=9;
+		pid.i_factor=1;
+		pid.d_factor=3;
 	}
 }
 
