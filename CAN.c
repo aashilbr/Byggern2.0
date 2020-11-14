@@ -113,7 +113,7 @@ int check_CAN_interrupt(){
 
 void oled_easy_pid(void){
 	Message message;
-	message.ID=404;
+	message.ID=4;
 	message.data[0]=1;
 	message.length=1;
 	CAN_send_message(&message);
@@ -122,7 +122,7 @@ void oled_easy_pid(void){
 
 void oled_hard_pid(void){
 	Message message;
-	message.ID=404;
+	message.ID=4;
 	message.data[0]=0;
 	message.length=1;
 	CAN_send_message(&message);
@@ -131,6 +131,7 @@ void oled_hard_pid(void){
 
 CAN_send_pos(int8_t x, int8_t y,uint8_t button ){
 	Message message;
+	message.ID=2;
 	message.data[0]=x;
 	message.data[1]=y;
 	message.data[2]=button;

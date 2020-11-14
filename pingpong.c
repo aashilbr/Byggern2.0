@@ -9,6 +9,7 @@
 #include "CAN.h"
 #include "menu.h"
 #include "timer.h"
+#include "external_memory.h"
 
 int check_if_game_over(void){
 	Message message;
@@ -38,6 +39,7 @@ pingpong_init(void){
 
 
 pingpong_print_score(){
+	//oled_clear_all();
 	oled_pos(3,30);
 	int time_diff = get_count();
 	oled_print("YOUR SCORE: ");
@@ -54,8 +56,8 @@ pingpong_move_with_joystick(void){
 	while (adc_joystick_dir(&joystick)!=BACK && !game_over){
 		adc_joystick_pos(&joystick);
 		CAN_send_pos(joystick.x,joystick.y,adc_read_button_touch_r());
-		//printf("button: %d \n \r", message.data[2]);
 		game_over = check_if_game_over();
+		pingpong_print_score();
 	}
 }
 
@@ -66,8 +68,8 @@ pingpong_move_with_sliders(void){
 	while (adc_joystick_dir(&joystick)!=BACK && !game_over){
 		adc_slider_pos(&joystick);
 		CAN_send_pos(joystick.x,joystick.y,adc_read_button_touch_r());
-		//printf("button: %d \n \r", message.data[2]);
 		game_over = check_if_game_over();
+		pingpong_print_score();
 	}
 }
 
@@ -76,23 +78,30 @@ pingpong_move_with_sliders(void){
 void pingpong_play_with_sliders(void){
 	pingpong_init();
 	pingpong_move_with_sliders();
-	GICR &= ~(1<<INT0); //external interrupt disabled
-	pingpong_print_score();
+	pingpong_save_highscore(get_count());
+	printf("score: %d \n\r",xmem_read(0x1801));
 	CAN_send_pos(0,0,0);
-	_delay_ms(2000);
+	
 }
 
 
 void pingpong_play_with_joystick(void){
 	pingpong_init();
 	pingpong_move_with_joystick();
-	GICR &= ~(1<<INT0); //external interrupt disabled
-	pingpong_print_score();
+	pingpong_save_highscore(get_count());
 	CAN_send_pos(0,0,0);
-	_delay_ms(2000);
-
 }
 
+void pingpong_save_highscore(uint8_t score){
+	uint8_t old_highscore = xmem_read(0x1801);
+	if(score > old_highscore){
+		xmem_write(score,0x1801);
+	}
+}
+
+ void reset_highscore(void){
+	 xmem_write(0,0x1801);
+ }
 
 /*
 

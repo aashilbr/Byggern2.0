@@ -11,7 +11,7 @@
 void SPI_master_init(void){
 	//cli();
 	DDRB |= (1<<DDB5)|(1<<DDB7)|(1<<DDB4); //Sets MOSI and SCK and SS as output
-	SPCR |= (1<<SPE)|(1<<MSTR)|(1<<SPR0); //Enable SPI, master, enable interrupt, and clock freq
+	SPCR |= (1<<SPE)|(1<<MSTR)|(1<<SPR0); //Enable SPI, master, and clock freq
 	
 	//SPCR &= ~(1<<SPR1); //Oscillator frequency to f/16
 	//SPCR &= ~(1<<CPOL); //Sets to SPI mode 0, to decide clock polarity and phase

@@ -25,7 +25,7 @@ void start_timer(void){
 	timer.count=0;
 }
 
-int get_count(void){
+uint8_t get_count(void){
 	return timer.count;
 }
 

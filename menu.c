@@ -6,7 +6,7 @@
  */ 
 
 #include "menu.h"
-
+#include "external_memory.h"
 
 
 
@@ -59,9 +59,13 @@ void oled_menu_high_score_sub(void) {
 	
 	oled_clear_all();
 	oled_pos(0,4);
-	oled_print("High score:");
+	oled_print("High score: ");
+	char score[10];
+	sprintf(score, "%d", (int) xmem_read(0x1801));
+	oled_pos(0,70);
+	oled_print(score);
 	oled_pos(2,4);
-	oled_print("Reset");
+	oled_print("Reset high score");
 }
 
 void oled_frame(uint8_t line){

@@ -21,6 +21,6 @@ void timer_init(void);
 
 void start_timer(void);
 
-int get_count(void);
+uint8_t get_count(void);
 
 #endif /* TIMER_H_ */

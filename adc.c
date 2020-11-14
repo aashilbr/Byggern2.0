@@ -111,7 +111,6 @@ direction adc_joystick_dir(pos_js *js){
 	if (js->x>THRESHOLD&&js->x>abs(js->y))	{return RIGHT;}
 	if (js->y<-THRESHOLD&&abs(js->y)>abs(js->x)) {return DOWN;}
 	if (js->y>THRESHOLD&&js->y>abs(js->x))	{return UP;}
-	
 	else {return NEUTRAL;}	 
 }
 

@@ -241,9 +241,9 @@ static Menu_node m_menu_nodes[]={
 		oled_menu_stearing
 	},
 	{
-		"High score",//!!!!!!!!!!!!!!
+		"High score",
 		m_menu_nodes + 4,
-		NULL,
+		m_menu_nodes + 17,
 		NULL,
 		oled_menu_high_score_sub
 	},
@@ -295,6 +295,13 @@ static Menu_node m_menu_nodes[]={
 		NULL,
 		NULL,
 		pingpong_play_with_sliders
+	},
+	{
+		"Reset highscore",
+		m_menu_nodes + 9,
+		NULL,
+		NULL,
+		reset_highscore
 	}
 };
 
