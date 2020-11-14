@@ -57,8 +57,6 @@ int main(void)
 		pid_regulator();
 		controller_speed(get_u());
 		check_if_game_over();
-		
-		
 		//printf("x: %d y: %d shoot:%d \n\r",js_pos.x,-js_pos.y,js_pos.shoot);
 		//printf("u: %d sum: %f error:%d \n\r",pid.u,pid.sum_error,pid.error);
 		//controller_speed(js_pos.x);

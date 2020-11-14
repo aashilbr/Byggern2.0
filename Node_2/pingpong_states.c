@@ -30,7 +30,8 @@ void check_if_game_over(void){
 		message.id=0b1111;
 		message.data_length = 1;
 		message.data[0] = 100;
-		while(can_send(&message,1));
+		while(can_send(&message,0));
+		//while(can_send(&message,1));
 		pingpong_state.ball_detected=1;
 	}
 }

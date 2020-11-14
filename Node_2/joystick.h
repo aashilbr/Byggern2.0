@@ -8,7 +8,7 @@
 #ifndef JOYSTICK_H_
 #define JOYSTICK_H_
 
-
+#include "sam.h"
 #include <stdlib.h>
 
 typedef struct{

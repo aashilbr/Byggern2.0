@@ -44,7 +44,7 @@ void CAN0_Handler( void )
 				init_ppstate();
 				pid_error_init();
 			}
-			if(message.id==404){
+			if(message.id==4){
 				set_pid_difficulty(message.data[0]);
 			}
 			else{
@@ -60,18 +60,14 @@ void CAN0_Handler( void )
 				init_ppstate();
 				pid_error_init();
 			}
-			if(message.id==404){
+			if(message.id==4){
 				set_pid_difficulty(message.data[0]);
 			}
 			else{
 				js_pos.x =message.data[0];
 				js_pos.y = message.data[1];
 				js_pos.shoot = message.data[2];
-				//pos_to_duty_cycle(-js_pos.y);
-				//controller_speed(js_pos.x);
-				//count_score();
-				//printf("score: %d \n\r", pingpong_state.score);
-				//printf("Encoder%d\n\r", read_encoder());
+				
 								
 			}
 			
