@@ -1,7 +1,7 @@
 /*
  * timer.h
  *
- * Created: 11.11.2020 11:22:32
+ * Created: 21.10.2020 08:35:17
  *  Author: sandrgl
  */ 
 
@@ -9,18 +9,16 @@
 #ifndef TIMER_H_
 #define TIMER_H_
 
-#include <avr/io.h>
-#include <avr/interrupt.h>
-typedef struct Timer_s{
-	int count;
-}Timer;
+#include "sam.h"
 
-Timer timer;
+int c;
 
 void timer_init(void);
 
-void start_timer(void);
+void pwm2_init(void);
 
-int get_count(void);
+void set_duty_cycle(double percent);
+
+void pos_to_duty_cycle(int8_t pos);
 
 #endif /* TIMER_H_ */

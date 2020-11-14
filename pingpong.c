@@ -54,7 +54,6 @@ pingpong_move_with_joystick(void){
 	while (adc_joystick_dir(&joystick)!=BACK && !game_over){
 		adc_joystick_pos(&joystick);
 		CAN_send_pos(joystick.x,joystick.y,adc_read_button_touch_r());
-		//printf("button: %d \n \r", message.data[2]);
 		game_over = check_if_game_over();
 	}
 }
@@ -66,7 +65,6 @@ pingpong_move_with_sliders(void){
 	while (adc_joystick_dir(&joystick)!=BACK && !game_over){
 		adc_slider_pos(&joystick);
 		CAN_send_pos(joystick.x,joystick.y,adc_read_button_touch_r());
-		//printf("button: %d \n \r", message.data[2]);
 		game_over = check_if_game_over();
 	}
 }
@@ -76,21 +74,16 @@ pingpong_move_with_sliders(void){
 void pingpong_play_with_sliders(void){
 	pingpong_init();
 	pingpong_move_with_sliders();
-	GICR &= ~(1<<INT0); //external interrupt disabled
 	pingpong_print_score();
 	CAN_send_pos(0,0,0);
-	_delay_ms(2000);
 }
 
 
 void pingpong_play_with_joystick(void){
 	pingpong_init();
 	pingpong_move_with_joystick();
-	GICR &= ~(1<<INT0); //external interrupt disabled
 	pingpong_print_score();
 	CAN_send_pos(0,0,0);
-	_delay_ms(2000);
-
 }
 
 
