@@ -2,14 +2,12 @@
  * @file external_memory.h
  *
  * Created: 02.09.2020 09:17:52
- *  Author: andrschn
+ * Author: andrschn
  */
 
 #ifndef EXTERNAL_MEMORY_H_
 #define EXTERNAL_MEMORY_H_
-#define BASE_ADDRESS 0x1000
-#include <avr/io.h>
-
+#include <stdint.h>
 
 /**
 * @brief Initializes external memory
@@ -33,8 +31,5 @@ void xmem_write(uint8_t data, uint16_t addr);
 * @return Returns the read value from the external memory
 */
 uint8_t xmem_read(uint16_t addr);
-
-
-
 
 #endif
