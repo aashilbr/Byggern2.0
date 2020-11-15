@@ -1,10 +1,9 @@
-/*
- * pingpong.h
- *
- * Created: 31.10.2020 14:13:04
- *  Author: sandrgl
- */
-
+/**
+* @file pingpong.h
+* @author sandrgl
+* @date 31.10.2020 14:13:04
+* @brief Library for playing pingpong.
+*/
 
 #ifndef PINGPONG_H_
 #define PINGPONG_H_
