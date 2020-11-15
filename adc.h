@@ -1,10 +1,9 @@
-/*
- * joystick.h
- *
- * Created: 09.09.2020 14:11:12
- *  Author: andrschn
- */
-
+ /**
+  * @file adc.h
+  * @author andrschn
+  * @date 09.09.2020 14:11:12
+  * @brief Library for using the adc interface.
+  */
 
 #ifndef ADC_H_
 #define ADC_H_
@@ -28,12 +27,12 @@ typedef struct{
 	int8_t y_offset;
 }pos_js;
 
-pos_js joystick; 
+pos_js joystick;
 /**
 * direction:
 * @brief An enum containing the direction of the joystick.
 */
-typedef enum {LEFT, RIGHT, UP, DOWN, NEUTRAL, PRESSED, BACK, GAME_OVER} direction; 
+typedef enum {LEFT, RIGHT, UP, DOWN, NEUTRAL, PRESSED, BACK, GAME_OVER} direction;
 
 /**
 * @brief Initializes the ADC.
@@ -48,12 +47,29 @@ void adc_init (void);
 */
 uint8_t adc_read(uint8_t channel); //volatile
 
+
+/**
+* @brief Reads the x position of the joystic from the ADC.
+* @return Returns the readed x-value.
+*/
 uint8_t adc_read_joystick_x();
 
+/**
+* @brief Reads the y position of the joystic from the ADC.
+* @return Returns the readed y-value.
+*/
 uint8_t adc_read_joystick_y();
 
+/**
+* @brief Reads the value of the left touch slider.
+* @return Returns the readed slider value.
+*/
 uint8_t adc_read_slider_left();
 
+/**
+* @brief Reads the value of the right touch slider.
+* @return Returns the readed slider value.
+*/
 uint8_t adc_read_slider_right();
 
 /**
@@ -82,23 +98,28 @@ uint8_t adc_read_button_touch_r(void);
 */
 void adc_calibrate_joystick(pos_js *js);
 
+/**
+* @brief Updates the position of the joystick.
+* @param [in] js A pointer to a pos_js object.
+* @details The position values are given in percentage
+* of the maximum x and y position values.
+*/
 void adc_joystick_pos(pos_js* js);
 
+/**
+* @brief Updates the position of the touch sliders.
+* @param [in] js A pointer to a pos_js object.
+* @details The position values are given in percentage
+* of the maximum x and y position values.
+*/
 void adc_slider_pos(pos_js* js);
+
 /**
 * @brief Gets the direction of the joystick.
 * @param [in] js A pointer to a pos_js object.
 * @return Returns the direction of the joystick.
 */
 direction adc_joystick_dir(pos_js *js);
-
-/**
-* @brief Gets the position of the joystick.
-* @param [in] js A pointer to a pos_js object.
-* @details The position values are given in percentage of the maximum
-* x and y position values.
-*/
-void adc_joystick_pos(pos_js *js);
 
 /**
 * @brief Prints an enum.
