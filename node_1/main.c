@@ -1,22 +1,12 @@
-/*
-  * Exercise1.c
-  *
-  * Created: 26.08.2020 08:46:32
-  * Author : aashilbr
-  */
-
  #include <avr/io.h>
- //#include <util/delay.h>
  #include "uart.h"
  #include "external_memory.h"
  #include <stdio.h>
  #include "sram_test.h"
  #include "pwm_clock.h"
- #define OUTPUT (6)
+
 #include "adc.h"
 #include "oled.h"
-#define F_CPU 4915200
-#include <util/delay.h>
 #include "mcu.h"
 #include "menu.h"
 #include "tictactoe.h"
@@ -25,6 +15,9 @@
 #include "CAN.h"
 #include "pingpong.h"
 #include "timer.h"
+
+#define F_CPU 4915200
+#include <util/delay.h>
 
 #include <avr/pgmspace.h>
 
