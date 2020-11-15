@@ -14,9 +14,9 @@
 * @brief A struct for saving the joystick position and the shoot-button state
 */
 typedef struct{
-	int8_t x; /** The x position of the joystick, between -100 and 100 */
-	int8_t y; /** The y position of the joystick, between -100 and 100 */
-	int8_t shoot; /** Is 1 if button to shoot is pushed and 0 otherwise */
+	int8_t x; /**< The x position of the joystick, between -100 and 100 */
+	int8_t y; /**< The y position of the joystick, between -100 and 100 */
+	int8_t shoot; /**< Is 1 if button to shoot is pushed and 0 otherwise */
 }pos_js;
 
 
