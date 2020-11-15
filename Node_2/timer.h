@@ -1,46 +1,24 @@
 /*
  * timer.h
  *
- * Created: 11.11.2020 11:22:32
+ * Created: 21.10.2020 08:35:17
  *  Author: sandrgl
- */
+ */ 
 
 
 #ifndef TIMER_H_
 #define TIMER_H_
 
-#include <avr/io.h>
-#include <avr/interrupt.h>
+#include "sam.h"
 
-/**
-* Timer:
-* @count An integer containing how long the timer has been counting, in seconds.
-* @details The variable counts how many times the timer calls the interrupt
-* service routine.
-*/
-typedef struct Timer_s{
-	int count;
-}Timer;
+int c;
 
-Timer timer;
-
-/**
-* @brief Initializes the timer
-* @details Starts the timer. Sets clock prescalar to  64, enables interrupts and
-* compare match on 90.
-*/
 void timer_init(void);
 
-/**
-* @brief Starts the timer
-* @details Initializes the timer count to be 0.
-*/
-void start_timer(void);
+void pwm2_init(void);
 
-/**
-* @brief Retrieves the timer count.
-* @return The value the timer has counted to.
-*/
-uint8_t get_count(void);
+void set_duty_cycle(double percent);
+
+void pos_to_duty_cycle(int8_t pos);
 
 #endif /* TIMER_H_ */
