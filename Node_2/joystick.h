@@ -2,6 +2,7 @@
 * @file joystick.h
 * @author sandrgl
 * @date  14.10.2020
+* @breif Struct with joystick state
 */
 #ifndef JOYSTICK_H_
 #define JOYSTICK_H_
