@@ -1,10 +1,9 @@
-/*
- * timer.h
- *
- * Created: 11.11.2020 11:22:32
- *  Author: sandrgl
- */
-
+/**
+* @file timer.h
+* @author sandrgl
+* @date 11.11.2020 11:22:32
+* @brief Library for timer functions.
+*/
 
 #ifndef TIMER_H_
 #define TIMER_H_
