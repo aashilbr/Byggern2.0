@@ -1,11 +1,7 @@
-/*
- * menu.h
- *
- * Created: 16.09.2020 18:59:51
- *  Author: andrschn
- */
  /**
- * @file
+ * @file menu.h
+ * @author andrschn
+ * @date 16.09.2020 18:59:51
  * @brief Library to form a menu system.
  */
 #include "oled.h"
