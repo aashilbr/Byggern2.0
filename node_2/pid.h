@@ -1,8 +1,8 @@
-/**
-* @file pid.h
-* @author andrschn
-* @date  28.10.2020
-* @brief Driver for PID regulator.
+ /** pid.h
+ *
+ * Created: 28.10.2020 20:52:51
+ *  Author: sandrgl
+  
 */
 
 
@@ -12,57 +12,26 @@
 #include "joystick.h"
 #include "motor_controller.h"
 
-/**
- * @brief A structure to represent a person.
- */
 typedef struct Pid_s{
-	double p_factor; /** < The proportional factor in PID regulator */
-	double i_factor; /** < The integral factor in PID regulator */
-	double d_factor; /** < The derivative factor in PID regulator */
-	int16_t error; /** < Error between the reference and actual state */
-	int16_t sum_error; /** < Sum of error */
-	int16_t last_error; /** < The value of error last run */
-	int control_signal; /** < The calculated control signal */
-	int8_t ref; /** < Reference value for the position, from joystick */
-	int8_t measured; /** < The measured value from the encoder */
+	double p_factor;
+	double i_factor;
+	double d_factor;
+	int16_t error;
+	int16_t sum_error;
+	int16_t last_error;
+	int u;
+	int8_t ref;
+	int8_t measured;	
 
 }Pid;
 
-/**
-* @brief Function for returning the stored control signal from Pid struct
-* @return The control signal
-*/
-int get_control_signal(void);
+int get_u(void); 
 
-/**
-* @brief Initialization of Pid stuct
-* @details Init function for setting tuned PID values and
-* initializing the rest of the values in Pid struct to be zero
-*  at start-up.
-*/
-void pid_init(void);
+void pid_init();
 
-/**
-* @brief Calculating the control signal using discrete PID regulator
-* @details The function calculates the values needed in the regulator
-* and stores them in the Pid struct.
-*/
 void pid_regulator();
 
-/**
-* @brief Function for choosing the difficulity of controlling the
-* motor.
-* @param [in] diff 0 for hard and easy otherwise
-* @details the function stores the new PID regulator constants in Pid struct.
-*/
 void set_pid_difficulty(uint8_t diff);
-
-/**
-* @brief Sets the error values in Pid struct to zero, as well as control_signal,
-* ref and measured.
-* @details To be used if the program is starting over, but we don't want to
-* change the P, I and D factor.
-*/
 void pid_error_init();
 
-#endif  PID.H_H_
+#endif  PID.H_H_ 
