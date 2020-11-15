@@ -1,7 +1,11 @@
+/*
+ * menu.h
+ *
+ * Created: 16.09.2020 18:59:51
+ *  Author: andrschn
+ */
  /**
- * @file menu.h
- * @author andrschn
- * @date 16.09.2020 18:59:51
+ * @file
  * @brief Library to form a menu system.
  */
 #include "oled.h"
@@ -108,7 +112,7 @@ void oled_menu_games(void);
 
 /**
 * @brief Prints the Settings menu graphics to the OLED.
-* @details Settings menu contains the options Brightness, Difficulty and Calibrate.
+* @details Settings menu contains the options Brightness, Music and Calibrate.
 */
 void oled_menu_settings(void);
 
@@ -121,8 +125,7 @@ void oled_menu_games_sub(void);
 
 /**
 * @brief Prints the Ping Pong's High Score sub menu to the OLED.
-* @details High Score sub menu contains the high score and reset function
-* of the high score.
+* @details High Score sub menu contains the options high score and reset.
 */
 void oled_menu_high_score_sub(void);
 
@@ -132,15 +135,10 @@ void oled_menu_high_score_sub(void);
 */
 void oled_menu_set_brightness(void);
 
-/**
-* @brief Prints the Difficulty menu to the OLED.
-* @details Difficulty menu consists of the options Easy and Hard.
-*/
+
 void oled_menu_difficulty(void);
 
-/**
-* @brief Sets the brightness level on the OLED.
-*/
+
 void oled_set_brightness_lvl(uint8_t lvl); //not used
 
 /**
@@ -158,30 +156,16 @@ void oled_set_brightness_lvl_med(void);
 */
 void oled_set_brightness_lvl_max(void);
 
-/**
-* @brief Calibrates the joystick via the OLED menu.
-*/
+
 void oled_calibrate_joystick(void);
 
-/**
-* @brief Prints the options of stearing mechanisms to the OLED.
-* @details The stearing mechanism menu consists of the
-* options Joystick and Sliders.
-*/
 void oled_menu_stearing(void);
-/**
-* @brief Prints the information on how to stear the game board
-* racket by using the joystick.
-*/
 
 void oled_menu_joystick_info(void) ;
 
-/**
-* @brief Prints the information on how to stear the game board
-* racket by using the touch sliders.
-*/
 void oled_menu_slider_info(void);
 
 
+void print_submenu(Menu_node* p_node); 
 
 #endif /* MENU_H_ */

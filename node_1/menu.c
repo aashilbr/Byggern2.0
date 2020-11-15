@@ -8,7 +8,22 @@
 #include "menu.h"
 #include "external_memory.h"
 
-
+void print_submenu(Menu_node* p_node){
+	oled_clear_all();
+	
+	Menu_node* p_child = p_node->p_child;
+	uint8_t line = 0;
+	
+	oled_pos(line,4);
+	oled_print(p_node->name);
+	
+	while (p_child != NULL){
+		line += 2;
+		oled_pos(line, 4);
+		oled_print(p_child->name);
+		p_child = p_child->p_sibling;
+	}
+}
 
 void oled_menu_main(void) {
 	oled_clear_all();
@@ -39,9 +54,9 @@ void oled_menu_settings(void) {
 	oled_pos(2,4);
 	oled_print("Brightness");
 	oled_pos(4,4);
-	oled_print("Set difficulty");
+	oled_print("Difficulty");
 	oled_pos(6,4);
-	oled_print("Calibrate joystick");
+	oled_print("Calibrate");
 }
 
 void oled_menu_games_sub(void) {
@@ -61,11 +76,11 @@ void oled_menu_high_score_sub(void) {
 	oled_pos(0,4);
 	oled_print("High score: ");
 	char score[10];
-	sprintf(score, "%d", (int) xmem_read(0x1801));
+	sprintf(score, "%d", (int) xmem_read(0));
 	oled_pos(0,70);
 	oled_print(score);
 	oled_pos(2,4);
-	oled_print("Reset high score");
+	oled_print("Reset");
 }
 
 void oled_frame(uint8_t line){
@@ -100,7 +115,7 @@ void oled_set_brightness_lvl(uint8_t lvl){
 void oled_menu_set_brightness(void) {
 	oled_clear_all();
 	oled_pos(0,4);
-	oled_print("SET BRIGHTNESS LEVEL:");
+	oled_print("BRIGHTNESS:");
 	oled_pos(2,4);
 	oled_print("Min");
 	oled_pos(4,4);
@@ -112,7 +127,7 @@ void oled_menu_set_brightness(void) {
 void oled_menu_difficulty(void) {
 	oled_clear_all();
 	oled_pos(0,4);
-	oled_print("SET DIFFICULTY:");
+	oled_print("DIFFICULTY:");
 	oled_pos(2,4);
 	oled_print("Easy");
 	oled_pos(4,4);
@@ -148,6 +163,8 @@ void oled_menu_stearing(void) {
 	oled_print("Joystick");
 	oled_pos(4,4);
 	oled_print("Sliders");
+	oled_pos(6,4);
+	oled_print("Memory");
 }
 
 
@@ -206,6 +223,7 @@ void oled_navigate(direction dir, state *p_node) {
 					p_node->current_node = p_node->current_node->p_sibling;			
 				}
 				p_node->menu_pos=1;
+				print_submenu(p_node->current_node);
 				p_node->current_node->action();
 				if (p_node->current_node->p_child != NULL){oled_frame(p_node->menu_pos*2);}
 				_delay_ms(1000);
@@ -216,6 +234,7 @@ void oled_navigate(direction dir, state *p_node) {
 				oled_clear_all();
 				p_node->current_node = p_node->current_node->p_parent;
 				p_node->menu_pos=1;
+				print_submenu(p_node->current_node);
 				p_node->current_node->action();
 				oled_frame(p_node->menu_pos*2);
 				_delay_ms(1000);

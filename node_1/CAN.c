@@ -129,7 +129,7 @@ void oled_hard_pid(void){
 }
 
 
-CAN_send_pos(int8_t x, int8_t y,uint8_t button ){
+void CAN_send_pos(int8_t x, int8_t y,uint8_t button ){
 	Message message;
 	message.ID=2;
 	message.data[0]=x;
