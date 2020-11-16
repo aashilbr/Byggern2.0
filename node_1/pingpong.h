@@ -1,5 +1,5 @@
 /**
-* @file node1/pingpong.h
+* @file node_1/pingpong.h
 * @author sandrgl
 * @date 31.10.2020 14:13:04
 * @brief Library for playing pingpong.
