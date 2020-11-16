@@ -1,10 +1,9 @@
-/*
- * SPI.h
- *
- * Created: 30.09.2020 08:45:09
- *  Author: andrschn
- */
-
+/**
+* @file node_1\SPI.h
+* @author andrschn
+* @date 30.09.2020 08:45:09
+* @brief Library for serial peripheral interface.
+*/
 
 #ifndef SPI_H_
 #define SPI_H_
@@ -23,8 +22,6 @@ void SPI_master_init(void);
 * @details Transmits data and wait for transmission to complete.
 */
 void SPI_master_transmit(char data);
-
-void SPI_slave_init(void); //not in use
 
 /**
 * @brief Recieves (reads) transmitted data.
