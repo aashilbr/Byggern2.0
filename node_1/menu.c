@@ -3,20 +3,20 @@
  *
  * Created: 16.09.2020 18:59:34
  *  Author: andrschn
- */ 
+ */
 
 #include "menu.h"
 #include "external_memory.h"
 
 void print_submenu(Menu_node* p_node){
 	oled_clear_all();
-	
+
 	Menu_node* p_child = p_node->p_child;
 	uint8_t line = 0;
-	
+
 	oled_pos(line,4);
 	oled_print(p_node->name);
-	
+
 	while (p_child != NULL && line<=7){
 		line += 2;
 		oled_pos(line, 4);
@@ -27,7 +27,7 @@ void print_submenu(Menu_node* p_node){
 
 
 void oled_menu_high_score_sub(void) {
-	
+
 	oled_clear_all();
 	oled_pos(0,4);
 	oled_print("High score: ");
@@ -64,7 +64,7 @@ void oled_navigate(direction dir, state *p_node) {
 				oled_clear_all();
 				p_node->current_node = p_node->current_node->p_child ;
 				for (int i = 1; i<p_node->menu_pos; i++) {
-					p_node->current_node = p_node->current_node->p_sibling;			
+					p_node->current_node = p_node->current_node->p_sibling;
 				}
 				p_node->menu_pos=1;
 				//print_submenu(p_node->current_node);
@@ -83,9 +83,9 @@ void oled_navigate(direction dir, state *p_node) {
 				oled_frame(p_node->menu_pos*2);
 				_delay_ms(200);
 			}
-			break;	
+			break;
 		case NEUTRAL:
-			break;	
+			break;
 		case GAME_OVER:
 			if (p_node->current_node->p_parent!=NULL){
 				oled_clear_all();
@@ -117,7 +117,6 @@ int menu_children(const Menu_node * p_node, Menu_node ** pp_child){
 
 void menu_init(state * start_state){
 	oled_clear_all();
-	//start_state->current_node
 	start_state->menu_pos=1;
 	start_state->current_node->action();
 	oled_frame(2);
@@ -142,6 +141,6 @@ void oled_calibrate_joystick(void){
 	oled_clear_line(3);
 	oled_pos(4,7);
 	oled_print("Joystick calibrated <3");
-	
-	
+
+
 }
