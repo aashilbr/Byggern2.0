@@ -1,14 +1,8 @@
-/*
- * oled.h
- *
- * Created: 16.09.2020 11:36:39
- *  Author: andrschn
- */
 /**
 * @file node1/oled.h
 * @author andrschn
 * @date 16.09.2020 11:36:39
-* @brief Library for OLED functions. 
+* @brief Library for OLED functions.
 */
 
 
