@@ -1,5 +1,5 @@
 /**
-* @file node1/timer.h
+* @file node_1/timer.h
 * @author sandrgl
 * @date 11.11.2020 11:22:32
 * @brief Library for timer functions.
