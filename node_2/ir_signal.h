@@ -9,8 +9,10 @@
 #ifndef IR_SIGNAL_H_
 #define IR_SIGNAL_H_
 #include "sam.h"
-
-//Ta med adc_init funskjnen her???
+/**
+* @brief Initializes the analog to digital converter.
+*/
+void adc_init();
 
 /**
 * @brief Function for reading IR signal and convert analog data.
