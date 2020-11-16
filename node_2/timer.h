@@ -1,6 +1,6 @@
 
 /**
-* @file Node_2/timer.h
+* @file node_2/timer.h
 * @author sandrgl
 * @date 21.10.2020 08:35:17
 * @brief A timer module for a pwm signal of 50Hz
