@@ -1,5 +1,5 @@
 /**
-* @file Node2/ir_signal.h
+* @file node_2/ir_signal.h
 * @author sandrgl
 * @date 21.10.2020
 * @brief Code for coverting analog IR signal to digital signal
