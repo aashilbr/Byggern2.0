@@ -243,6 +243,8 @@ void ttt_main(direction dir, uint8_t* index, Turn* turn){
 		break;
 	case(BACK) :
 		break;
+	default :
+		break;
 	}
 }
 
