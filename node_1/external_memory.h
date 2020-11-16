@@ -38,4 +38,5 @@ uint8_t xmem_load_movement(uint8_t *p_data);
 
 uint8_t xmem_check_storing_condition(uint32_t count, uint8_t sampling);
 
+void xmem_reset_tail(void);
 #endif
