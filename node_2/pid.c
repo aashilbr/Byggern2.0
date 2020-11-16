@@ -1,22 +1,22 @@
- /* 
+ /*
  *pid.c
  *
  * Created: 28.10.2020 20:52:39
  *  Author: sandrgl
- */ 
+ */
 
 #include "pid.h"
 
 volatile Pid pid;
 
 void pid_init(void){
-	pid.p_factor =8;  
+	pid.p_factor =8;
 	pid.i_factor = 1;
 	pid.d_factor = 3;
 	pid.error = 0;
 	pid.last_error = 0;
 	pid.sum_error = 0;
-	pid.u = 0;
+	pid.control_signal = 0;
 	pid.ref = 0;
 	pid.measured = 0;
 }
@@ -25,10 +25,10 @@ void pid_error_init(){
 		pid.error = 0;
 		pid.last_error = 0;
 		pid.sum_error = 0;
-		pid.u = 0;
+		pid.control_signal = 0;
 		pid.ref = 0;
 		pid.measured = 0;
-	
+
 }
 
 void pid_regulator(){
@@ -36,9 +36,9 @@ void pid_regulator(){
 	pid.error =(int16_t)(pid.ref - pid.measured);
 	printf("error: %d ref:%d measured:%d\n\r", pid.error,pid.ref,pid.measured);
 	pid.sum_error += pid.error;
-	int u = pid.p_factor*pid.error+pid.i_factor*pid.sum_error+(pid.d_factor)*(pid.error-pid.last_error);
-	pid.u = u;
-	
+	int control_signal = pid.p_factor*pid.error+pid.i_factor*pid.sum_error+(pid.d_factor)*(pid.error-pid.last_error);
+	pid.control_signal = control_signal;
+
 }
 
 void set_pid_difficulty(uint8_t diff){
@@ -54,8 +54,8 @@ void set_pid_difficulty(uint8_t diff){
 	}
 }
 
-int get_u(void){
-	return pid.u;
+int get_control_signal(void){
+	return pid.control_signal;
 }
 
 
