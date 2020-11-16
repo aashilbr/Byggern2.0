@@ -2,15 +2,12 @@
  * @file external_memory.h
  *
  * Created: 02.09.2020 09:17:52
- *  Author: andrschn
+ * Author: andrschn
  */
 
 #ifndef EXTERNAL_MEMORY_H_
 #define EXTERNAL_MEMORY_H_
-#define BASE_ADDRESS 0x1800
-#include <avr/io.h>
-#define MIN_DATA_NR 200
-#define MAX_DATA_NR 2240
+#include <stdint.h>
 
 /**
 * @brief Initializes external memory
@@ -26,7 +23,7 @@ void xmem_init(void);
 * @param [in] addr 16-bit address
 * @details Function that writes @p data to @p address in external memory.
 */
-void xmem_write(int8_t data, uint16_t addr);
+void xmem_write(uint16_t addr, uint8_t data);
 
 /**
 * @brief Read function from external memory
@@ -35,15 +32,11 @@ void xmem_write(int8_t data, uint16_t addr);
 */
 int8_t xmem_read(uint16_t addr);
 
-
-
-
 void xmem_save_movement(int8_t x_pos, uint8_t nr);
 
-int8_t xmem_read_x_movement(uint8_t nr);
-int8_t xmem_read_y_movement(uint8_t nr);
-uint8_t xmem_read_button_movement(uint8_t nr);
-int xmem_check_storing_condition(int count, int frequency);
+uint8_t xmem_check_storing_condition(uint32_t count, uint8_t sampling);
+
 void xmem_write_size(uint16_t data_store_nr);
-int16_t xmem_get_size(void);
+
+uint16_t xmem_read_size(void);
 #endif
