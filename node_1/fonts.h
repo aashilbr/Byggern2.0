@@ -3,18 +3,12 @@
  *
  * Created: 16.09.2020 14:00:51
  *  Author: andrschn
- */ 
-
-
+ */
 #ifndef FONTS_H_
 #define FONTS_H_
-
-
 #include <avr/pgmspace.h>
 
-
-// Font 5x7 - normal
-const unsigned char PROGMEM font5[95][5] = {
+const unsigned char PROGMEM font[95][5] = {
 	{0b00000000,0b00000000,0b00000000,0b00000000,0b00000000}, //
 	{0b00000000,0b00000000,0b01011111,0b00000000,0b00000000}, // !
 	{0b00000000,0b00000111,0b00000000,0b00000111,0b00000000}, // "
@@ -111,8 +105,5 @@ const unsigned char PROGMEM font5[95][5] = {
 	{0b00000000,0b01000001,0b00110110,0b00001000,0b00000000}, // }
 	{0b00000010,0b00000001,0b00000011,0b00000010,0b00000001}, // ~
 };
-
-
-
 
 #endif /* FONTS_H_ */
