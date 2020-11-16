@@ -1,5 +1,5 @@
 /**
-* @file pingpong.h
+* @file node1/pingpong.h
 * @author sandrgl
 * @date 31.10.2020 14:13:04
 * @brief Library for playing pingpong.
@@ -82,7 +82,7 @@ void reset_highscore(void);
 /**
 * @brief Replays the saved ping pong game.
 * @details Fetches the game from SRAM and sends the saved
-* positions over the CAN bus. 
+* positions over the CAN bus.
 */
 void pingpong_move_with_memory(void);
 
