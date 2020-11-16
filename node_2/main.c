@@ -10,7 +10,6 @@
 #include "uart.h"
 #include "can_controller.h"
 #include "timer.h"
-//#include "can_interrupt.h"
 #include "joystick.h"
 #include "ir_signal.h"
 #include "pingpong_states.h"
@@ -43,9 +42,7 @@ int main(void)
 	adc_init();
 	pid_init();
 	init_ppstate();
-	//motor_init();
 
-	//set_duty_cycle(7);
 	CAN_MESSAGE m;
 
 
@@ -57,13 +54,6 @@ int main(void)
 		pid_regulator();
 		controller_speed(get_control_signal());
 		check_if_game_over();
-		//printf("x: %d y: %d shoot:%d \n\r",js_pos.x,-js_pos.y,js_pos.shoot);
-		//printf("u: %d sum: %f error:%d \n\r",pid.u,pid.sum_error,pid.error);
-		//controller_speed(js_pos.x);
-		//printf("Encoder%d\n\r", pid.measured);
-		//printf("x: %d\n\r", pid.ref);
 
-		//int d = (pid.d_factor/pid.dt)*(pid.error-pid.last_error);
-		//printf("d: %d \n\r", d);
     }
 }
