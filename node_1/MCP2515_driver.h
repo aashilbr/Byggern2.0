@@ -10,6 +10,7 @@
 
 #include "SPI.h"
 #include "mcp2515.h"
+#define F_CPU 4915200
 #include <util/delay.h>
 
 #ifndef MCP2515_DRIVER_H_

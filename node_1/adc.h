@@ -8,7 +8,7 @@
 
 #ifndef ADC_H_
 #define ADC_H_
-
+#define F_CPU 4915200
 #include <avr/io.h>
 #include <util/delay.h>
 #include <stdlib.h>
