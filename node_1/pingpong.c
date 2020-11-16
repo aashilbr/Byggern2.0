@@ -63,7 +63,7 @@ void print_game_finshed(int game_over){
 
 void pingpong_store_data(int8_t x_pos, int8_t y_pos, uint8_t button, int count, int sampling){
 	 if (xmem_check_storing_condition(count, sampling)){
-		 xmem_save_movement(x_pos,count);
+		 xmem_save_movement(x_pos);
 	 }
 }
 
@@ -71,13 +71,11 @@ void pingpong_move_with_joystick(void){
 	int game_over = 0;
 	int count = 0;
 	int sampling = 8;
-	uint16_t data_store_nr = 2;
 	while (adc_joystick_dir(&joystick)!=BACK && !game_over){// && !game_over){
 		count++;
 		if (xmem_check_storing_condition(count,sampling)){
-			data_store_nr++;
 			//printf("nr %d X: %d\n\r", data_store_nr, joystick.x);
-			xmem_save_movement(joystick.x,data_store_nr);	
+			xmem_save_movement(joystick.x);	
 		}
 		
 		adc_joystick_pos(&joystick);
@@ -85,7 +83,6 @@ void pingpong_move_with_joystick(void){
 		game_over = check_if_game_over();
 		pingpong_print_score();
 	}
-	xmem_write_size(data_store_nr);
 	print_game_finshed(game_over);
 }
 
@@ -131,12 +128,9 @@ void pingpong_play_with_joystick(void){
 
 void pingpong_move_with_memory(void){
 	pingpong_init();
-	int16_t movement_size = xmem_get_size();
-	int data_nr = 3;
-	while (adc_joystick_dir(&joystick)!=BACK && data_nr<movement_size){
-		int8_t x_pos = xmem_read(data_nr);
-		data_nr++;
-		CAN_send_pos(x_pos, 0, 0);
+	int8_t pos;
+	while (adc_joystick_dir(&joystick)!=BACK && !xmem_load_movement((uint8_t *)(&pos))){
+		CAN_send_pos(pos, 0, 0);
 		_delay_ms(20);
 	}
 }
