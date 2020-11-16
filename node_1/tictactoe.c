@@ -3,16 +3,13 @@
  *
  * Created: 27.09.2020 14:54:45
  *  Author: aashilbr
- */ 
+ */
 #include "tictactoe.h"
-	
+
 uint8_t Grid_pos[9][3] = {{0,16,1},{0,48,1},{0,80,1},{2,16,32},{2,48,32},{2,80,32},{5,16,4},{5,48,4},{5,80,4}};
-	
+
 
 Grid_state game_board[9];
-
-
-
 
 void ttt_grid(void){
 	oled_clear_all();
@@ -34,7 +31,7 @@ void ttt_grid(void){
 		oled_pos(i,80);
 		oled_write_data(0xff);
 		oled_pos(i,112);
-		oled_write_data(0xff);		
+		oled_write_data(0xff);
 	}
 }
 
@@ -58,7 +55,7 @@ void ttt_print_line(uint8_t index){
 	uint8_t line=Grid_pos[index][0];
 	uint8_t column = Grid_pos[index][1];
 	uint8_t bit = Grid_pos[index][2];
-	oled_pos(line,column+3); 
+	oled_pos(line,column+3);
 	for(int i=0; i<4;i++){
 		oled_write_data(bit|bit<<2);
 	}
@@ -88,37 +85,37 @@ Game_state ttt_game_status(){
 			if(game_board[0]==X){return X_WIN;}
 			if(game_board[0]==O){ return O_WIN;}
 		}
-		
+
 		else if (game_board[3] == game_board[4] && game_board[4] == game_board[5] && game_board[3]!=NONE){
 			if(game_board[3]==X){return X_WIN;}
 			if(game_board[3]==O){ return O_WIN;}
 		}
-		
+
 		else if (game_board[6] == game_board[7] && game_board[7] == game_board[8] && game_board[6]!=NONE){
 			if(game_board[6]==X){return X_WIN;}
 			if(game_board[6]==O){ return O_WIN;}
 		}
-		
+
 		else if (game_board[0] == game_board[3] && game_board[3] == game_board[6]&& game_board[0]!=NONE){
 			if(game_board[0]==X){return X_WIN;}
 			if(game_board[0]==O){ return O_WIN;}
 		}
-		
+
 		else if (game_board[1] == game_board[4] && game_board[4] == game_board[7] && game_board[1]!=NONE){
 			if(game_board[1]==X){return X_WIN;}
 			if(game_board[1]==O){ return O_WIN;}
 		}
-		
+
 		else if (game_board[2] == game_board[5] && game_board[5] == game_board[8] && game_board[2]!=NONE){
 			if(game_board[2]==X){return X_WIN;}
 			if(game_board[2]==O){ return O_WIN;}
 		}
-		
+
 		else if (game_board[0] == game_board[4] && game_board[4] == game_board[8] && game_board[0]!=NONE){
 			if(game_board[0]==X){return X_WIN;}
 			if(game_board[0]==O){ return O_WIN;}
 		}
-		
+
 		else if (game_board[2] == game_board[4] && game_board[4] == game_board[6] && game_board[2]!=NONE){
 			if(game_board[2]==X){return X_WIN;}
 			if(game_board[2]==O){ return O_WIN;}
@@ -212,10 +209,10 @@ void ttt_main(direction dir, uint8_t* index, Turn* turn){
 					turn->turn = O_PLAY;
 					ttt_erase_line(*index);
 					*index=0;
-					ttt_print_line(*index);	
+					ttt_print_line(*index);
 					_delay_ms(1000);
 					break;
-			
+
 				case(O_PLAY):
 					game_board[*index]=O;
 					ttt_print_o(*index);
@@ -264,5 +261,4 @@ void ttt_menu_game(){
 
 	}
 	for (int i = 0; i<9;i++){game_board[i]=NONE;}
-	
 }

@@ -6,7 +6,7 @@
  */
 
 #include "uart.h"
-
+#include <avr/io.h>
 
 void UART_Init(unsigned int ubrr) {
 	UBRR0H = (unsigned char) (ubrr>>8);

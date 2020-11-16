@@ -3,7 +3,7 @@
  *
  * Created: 31.10.2020 14:13:27
  *  Author: sandrgl
- */ 
+ */
 #include "pingpong.h"
 #include "adc.h"
 #include "CAN.h"
@@ -21,8 +21,6 @@ int check_if_game_over(void){
 	}
 	return 0;
 }
-
-
 
 void pingpong_init(void){
 	Message message;
@@ -75,10 +73,10 @@ void pingpong_move_with_joystick(void){
 		count++;
 		printf("Count: %d \n\r", count);
 		if (xmem_check_storing_condition(count,sampling)){
-			xmem_save_movement(joystick.x);	
+			xmem_save_movement(joystick.x);
 			//printf(" X: %d\n\r", xmem_read(count/sampling));
 		}
-		
+
 		adc_joystick_pos(&joystick);
 		CAN_send_pos(joystick.x,joystick.y,adc_read_button_touch_r());
 		game_over = check_if_game_over();

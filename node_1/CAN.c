@@ -3,7 +3,7 @@
  *
  * Created: 30.09.2020 14:01:09
  *  Author: andrschn
- */ 
+ */
 
 #include "CAN.h"
 volatile uint8_t can_flag = 0;
@@ -13,23 +13,23 @@ uint8_t CAN_init(uint8_t mode){
 	SPI_master_init();
 	mcp_reset();
 	//mcp_write(0x0f, 0x80);
-	
-	
+
+
 	value = mcp_read(MCP_CANSTAT); //self-test
 	if ((value & MODE_MASK) != MODE_CONFIG){
 		printf("MCP2515 is NOT in configuration mode after reset!\n\r");
 		return 1;
 	}
 	mcp_bit_modify(MCP_CNF3, 0b00000111, 0x01);		//PS2: 2*Tq
-		
+
 	mcp_bit_modify(MCP_CNF2, 0b00000111, 0x05);		//PRSEG: 6*Tq
 	mcp_bit_modify(MCP_CNF2, 0b00111000, 0x06<<3);	//PHSEG1: 7*Tq
 	mcp_bit_modify(MCP_CNF2, 0b01000000, 0x00<<6);	//SAM: 0 Busline sample once
 	mcp_bit_modify(MCP_CNF2, 0b10000000, 0x01<<7);	//BTLMODE: Length of PS2 determined by PHSEG2 bits in CNF3
-		
+
 	mcp_bit_modify(MCP_CNF1, 0b11000000, 0x00<<6);	//SJW: 1*Tq
 	mcp_bit_modify(MCP_CNF1, 0b00111111, 0x03);		//BRP: Tq=8/F_osc=95ns
-	
+
 
 	//SELF TEST
 	if(mcp_read(MCP_CNF1)!=0x03){
@@ -41,18 +41,18 @@ uint8_t CAN_init(uint8_t mode){
 	if(mcp_read(MCP_CNF3)!=0x01){
 		printf("CNF3 is NOT in configured!\n\r");
 	}
-	
+
 	//mcp_bit_modify(MCP_RXB0CTRL, 0x60, 0x00);
-	mcp_write(MCP_CANCTRL, mode); 
+	mcp_write(MCP_CANCTRL, mode);
 	//mcp_bit_modify(MCP_CANCTRL, 0x00, mode);
 	value = mcp_read(MCP_CANSTAT);
 	uint8_t mode_bits = (value & MODE_MASK);
 	if (mode_bits != mode){
 		printf("MCP2515 is NOT in correct mode!\n\r");
-		return 1;	
+		return 1;
 	}
-	
-	
+
+
 	//mcp_bit_modify(MCP_CANINTF,0b00000011,MCP_RX_INT);
 	mcp_write(MCP_CANINTE, MCP_RX_INT);
 	//ENABLE INTERRUPS
@@ -61,12 +61,12 @@ uint8_t CAN_init(uint8_t mode){
 	GICR |= (1<<INT0); //external interrupt enabled
 	DDRD &= ~(1<<PD2); //set int0 as input
 	sei();
-	
+
 	return 0;
 }
 
 void CAN_send_message(Message *message){
-	
+
 	while (CAN_transmit_request()){}
 	mcp_write(0x31, ((message->ID) >>3)); //0x31 ==MCP_TXB0SIDH
 	mcp_write(0x32, ((message->ID) << 5));	//0x32 ==MCP_TXB0SIDL
@@ -85,7 +85,7 @@ uint8_t CAN_transmit_request(void){
 
 void CAN_receive_message(Message *message){
 	uint8_t receive_buffer = (mcp_read(MCP_CANINTF) & 0x3) -1; //check which buffer received a message
-	
+
 	uint8_t status = mcp_read_status();
 	//printf("status %d", status);
 	//while (status & 0x01){}
@@ -117,7 +117,7 @@ void oled_easy_pid(void){
 	message.data[0]=1;
 	message.length=1;
 	CAN_send_message(&message);
-	
+
 }
 
 void oled_hard_pid(void){

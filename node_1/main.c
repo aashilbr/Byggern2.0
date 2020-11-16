@@ -7,7 +7,6 @@
 
 #include "adc.h"
 #include "oled.h"
-#include "mcu.h"
 #include "menu.h"
 #include "tictactoe.h"
 #include "SPI.h"
@@ -20,6 +19,8 @@
 #include <util/delay.h>
 
 #include <avr/pgmspace.h>
+
+#include <avr/io.h>
 
 
 

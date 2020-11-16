@@ -3,8 +3,9 @@
  *
  * Created: 11.11.2020 11:22:55
  *  Author: sandrgl
- */ 
+ */
 #include "timer.h"
+#include <avr/io.h>
 
 void timer_init(void){
 	TCCR1A = 0x00;
@@ -15,7 +16,7 @@ void timer_init(void){
 }
 
 ISR (TIMER1_OVF_vect){
-	TIFR = 0x01;	
+	TIFR = 0x01;
 	TCNT1 = 90;
 	timer.count++;
 }
@@ -28,5 +29,3 @@ void start_timer(void){
 uint8_t get_count(void){
 	return timer.count;
 }
-
-	
