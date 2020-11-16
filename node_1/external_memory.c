@@ -8,8 +8,7 @@
 #include <avr/io.h>
 
 
-#define SIZE_LOW_BYTE 1
-#define SIZE_HIGH_BYTE 2
+
 #define MIN_DATA_NR 1
 #define MAX_DATA_NR 2040
 
