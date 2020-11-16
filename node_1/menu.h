@@ -1,13 +1,9 @@
-/*
- * menu.h
- *
- * Created: 16.09.2020 18:59:51
- *  Author: andrschn
- */
- /**
- * @file
- * @brief Library to form a menu system.
- */
+/**
+* @file menu.h
+* @author andrschn
+* @date 16.09.2020 18:59:51
+* @brief Library to form a menu system.
+*/
 #include "oled.h"
 #include <stdio.h>
 #include "adc.h"
@@ -50,6 +46,7 @@ typedef struct{
 }state;
 
 //const Menu_node * menu_root_node();
+
 /**
  * @brief Inquire about the children of the menu node pointed
  * to by @p p_node. At return, @p pp_child will have been updated
@@ -135,10 +132,15 @@ void oled_menu_high_score_sub(void);
 */
 void oled_menu_set_brightness(void);
 
-
+/**
+* @brief Prints the Difficulty menu to the OLED.
+* @details Difficulty menu consists of the options Easy and Hard.
+*/
 void oled_menu_difficulty(void);
 
-
+/**
+* @brief Sets the brightness level on the OLED.
+*/
 void oled_set_brightness_lvl(uint8_t lvl); //not used
 
 /**
@@ -156,16 +158,34 @@ void oled_set_brightness_lvl_med(void);
 */
 void oled_set_brightness_lvl_max(void);
 
-
+/**
+* @brief Calibrates the joystick via the OLED menu.
+*/
 void oled_calibrate_joystick(void);
 
+/**
+* @brief Prints the options of stearing mechanisms to the OLED.
+* @details The stearing mechanism menu consists of the
+* options Joystick and Sliders.
+*/
 void oled_menu_stearing(void);
 
+/**
+* @brief Prints the information on how to stear the game board
+* racket by using the joystick.
+*/
 void oled_menu_joystick_info(void) ;
 
+/**
+* @brief Prints the information on how to stear the game board
+* racket by using the touch sliders.
+*/
 void oled_menu_slider_info(void);
 
-
-void print_submenu(Menu_node* p_node); 
+/**
+* @brief Prints the current menu subsystem to the OLED.
+* @param [in] p_node A pointer to a Menu_node object.
+*/
+void print_submenu(Menu_node* p_node);
 
 #endif /* MENU_H_ */
