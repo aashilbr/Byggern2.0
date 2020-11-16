@@ -3,7 +3,7 @@
  *
  * Created: 31.10.2020 14:13:27
  *  Author: sandrgl
- */ 
+ */
 #include "pingpong.h"
 #include "adc.h"
 #include "CAN.h"
@@ -39,7 +39,6 @@ void pingpong_init(void){
 
 
 void pingpong_print_score(){
-	//oled_clear_all();
 	oled_pos(4,30);
 	int time_diff = get_count();
 	oled_print("YOUR SCORE: ");
@@ -71,12 +70,12 @@ void pingpong_move_with_joystick(void){
 	int game_over = 0;
 	int count = 0;
 	int sampling = 2;
-	while (adc_joystick_dir(&joystick)!=BACK && !game_over){// && !game_over){
+	while (adc_joystick_dir(&joystick)!=BACK && !game_over){
 		count++;
 		if (xmem_check_storing_condition(count,sampling)){
-			xmem_save_movement(joystick.x);	
+			xmem_save_movement(joystick.x);
 		}
-		
+
 		adc_joystick_pos(&joystick);
 		CAN_send_pos(joystick.x,joystick.y,adc_read_button_touch_r());
 		game_over = check_if_game_over();
@@ -127,7 +126,7 @@ void pingpong_play_with_joystick(void){
 void pingpong_move_with_memory(void){
 	pingpong_init();
 	int8_t pos;
-	while (adc_joystick_dir(&joystick)!=BACK 
+	while (adc_joystick_dir(&joystick)!=BACK
 		&& !xmem_load_movement((uint8_t *)(&pos))){
 		CAN_send_pos(pos, 0, 0);
 		_delay_ms(10);
