@@ -1,12 +1,9 @@
 /**
-* @file MCP2515_driver.h
-* @author Andrea Schell
+* @file node_1/MCP2515_driver.h
+* @author andrschn
 * @date 30.09.2020 11:05:32
-* @copyright 2020 Joe Bloggs
-* @brief DRiver for controlling the MCP2515.
+* @brief Driver for controlling the MCP2515.
 */
-
-
 
 #include "SPI.h"
 #include "mcp2515.h"
