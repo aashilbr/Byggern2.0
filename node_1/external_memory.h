@@ -1,5 +1,5 @@
 /*
- * @file external_memory.h
+ * @file node_1/external_memory.h
  *
  * Created: 02.09.2020 09:17:52
  * Author: andrschn
@@ -32,11 +32,32 @@ void xmem_write(uint16_t addr, uint8_t data);
 */
 uint8_t xmem_read(uint16_t addr);
 
+/**
+* @brief Saves @p x_pos in xternal memory
+* @param [in] x_pos The position to save
+* @return Returns 0 is the saving was successful, otherwise 1
+*/
 uint8_t xmem_save_movement(int8_t x_pos);
-
+/**
+* @brief Loads a position from external memory
+* @param [in] p_data pointer to write the loaded data in
+* @return Returns 0 if loading was successful, otherwise 1
+* @details
+*/
 uint8_t xmem_load_movement(uint8_t *p_data);
 
+
+/**
+* @brief Cheks if storing conditions are met
+* @param [in] count The number of measurements made
+* @param [in] sampling The sampling period for saving
+* @return Returns 1 if conditions are met, if not it returns 0
+*/
 uint8_t xmem_check_storing_condition(uint32_t count, uint8_t sampling);
 
+/**
+* @brief Resets the tail to the front of the memory
+* @details Enabeling loading of movement several times
+*/
 void xmem_reset_tail(void);
 #endif
