@@ -1,5 +1,5 @@
 /**
-* @file motor_controller.h
+* @file node_2/motor_controller.h
 * @author andrschn
 * @date 28.10.2020
 * @brief Driver for motor controll and encoder reading
