@@ -12,7 +12,6 @@ uint8_t CAN_init(uint8_t mode){
 	uint8_t value;
 	SPI_master_init();
 	mcp_reset();
-	//mcp_write(0x0f, 0x80);
 
 
 	value = mcp_read(MCP_CANSTAT); //self-test
@@ -42,9 +41,7 @@ uint8_t CAN_init(uint8_t mode){
 		printf("CNF3 is NOT in configured!\n\r");
 	}
 
-	//mcp_bit_modify(MCP_RXB0CTRL, 0x60, 0x00);
 	mcp_write(MCP_CANCTRL, mode);
-	//mcp_bit_modify(MCP_CANCTRL, 0x00, mode);
 	value = mcp_read(MCP_CANSTAT);
 	uint8_t mode_bits = (value & MODE_MASK);
 	if (mode_bits != mode){
@@ -53,8 +50,8 @@ uint8_t CAN_init(uint8_t mode){
 	}
 
 
-	//mcp_bit_modify(MCP_CANINTF,0b00000011,MCP_RX_INT);
 	mcp_write(MCP_CANINTE, MCP_RX_INT);
+
 	//ENABLE INTERRUPS
 	cli();
 	MCUCR |= (1<<ISC01);//activate interrupt on falling edge
@@ -87,10 +84,9 @@ void CAN_receive_message(Message *message){
 	uint8_t receive_buffer = (mcp_read(MCP_CANINTF) & 0x3) -1; //check which buffer received a message
 
 	uint8_t status = mcp_read_status();
-	//printf("status %d", status);
-	//while (status & 0x01){}
+
 	message->ID = ((mcp_read(MCP_RXB0SIDH +(16*receive_buffer))<<3) | (mcp_read(0x62+(16*receive_buffer)) >> 5)); //RXB0SIDL
-	//printf("%d", message.ID);
+
 	message->length = (mcp_read(0x65+(16*receive_buffer))); //RXB0DLC
 	for (uint8_t i = 0; i < message->length; i++) {
 		message->data[i] = mcp_read((0x66+(16*receive_buffer))+ i);//MCP_RXB0D0

@@ -11,6 +11,9 @@ uint8_t Grid_pos[9][3] = {{0,16,1},{0,48,1},{0,80,1},{2,16,32},{2,48,32},{2,80,3
 
 Grid_state game_board[9];
 
+
+
+
 void ttt_grid(void){
 	oled_clear_all();
 	for (int i=16;i<113;i++)	{
@@ -153,16 +156,14 @@ void ttt_tie(){
 }
 
 void ttt_main(direction dir, uint8_t* index, Turn* turn){
-	//uint8_t current_index=0;
-	/*ttt_print_line(current_index);*/
-	//Game_state game_state=X_PLAY;
+	
 	switch (dir){
 	case(LEFT) :
 		if (*index!=0 && *index!=3 && *index!=6){
 			ttt_erase_line(*index);
 			*index -=1;
 			ttt_print_line(*index);
-			_delay_ms(1000);
+			_delay_ms(200);
 		}
 		break;
 	case(RIGHT) :
@@ -170,7 +171,7 @@ void ttt_main(direction dir, uint8_t* index, Turn* turn){
 			ttt_erase_line(*index);
 			*index +=1;
 			ttt_print_line(*index);
-			_delay_ms(1000);
+			_delay_ms(200);
 		}
 		break;
 	case(UP) :
@@ -178,7 +179,7 @@ void ttt_main(direction dir, uint8_t* index, Turn* turn){
 			ttt_erase_line(*index);
 			*index -=3;
 			ttt_print_line(*index);
-			_delay_ms(1000);
+			_delay_ms(200);
 		}
 		break;
 	case(DOWN) :
@@ -186,7 +187,7 @@ void ttt_main(direction dir, uint8_t* index, Turn* turn){
 			ttt_erase_line(*index);
 			*index +=3;
 			ttt_print_line(*index);
-			_delay_ms(1000);
+			_delay_ms(200);
 		}
 		break;
 	case(PRESSED) :
@@ -197,12 +198,12 @@ void ttt_main(direction dir, uint8_t* index, Turn* turn){
 					ttt_print_x(*index);
 					Game_state game_status = ttt_game_status();
 					if (game_status==X_WIN){
-						_delay_ms(1000);
+						_delay_ms(200);
 						ttt_winner(X_WIN);
 						break;
 					}
 					if (game_status==TIE){
-						_delay_ms(1000);
+						_delay_ms(200);
 						ttt_tie();
 						break;
 					}
@@ -210,7 +211,7 @@ void ttt_main(direction dir, uint8_t* index, Turn* turn){
 					ttt_erase_line(*index);
 					*index=0;
 					ttt_print_line(*index);
-					_delay_ms(1000);
+					_delay_ms(200);
 					break;
 
 				case(O_PLAY):
@@ -218,12 +219,12 @@ void ttt_main(direction dir, uint8_t* index, Turn* turn){
 					ttt_print_o(*index);
 					game_status = ttt_game_status();
 					if (game_status==O_WIN){
-						_delay_ms(1000);
+						_delay_ms(200);
 						ttt_winner(O_WIN);
 						break;
 					}
 					if (game_status==TIE){
-						_delay_ms(1000);
+						_delay_ms(200);
 						ttt_tie();
 						break;
 					}
@@ -231,7 +232,7 @@ void ttt_main(direction dir, uint8_t* index, Turn* turn){
 					ttt_erase_line(*index);
 					*index=0;
 					ttt_print_line(*index);
-					_delay_ms(1000);
+					_delay_ms(200);
 					break;
 				break;
 			}
@@ -248,7 +249,7 @@ void ttt_main(direction dir, uint8_t* index, Turn* turn){
 
 void ttt_menu_game(){
 	oled_clear_all();
-	_delay_ms(1000);
+	_delay_ms(200);
 	ttt_grid();
 	uint8_t* current_index=0;
 	Turn* turn = X_PLAY;
@@ -261,4 +262,5 @@ void ttt_menu_game(){
 
 	}
 	for (int i = 0; i<9;i++){game_board[i]=NONE;}
+
 }
