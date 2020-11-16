@@ -28,9 +28,9 @@ typedef enum {
 	MENU_SET_DIFFICULTY_EASY,
 	MENU_SET_DIFFICULTY_HARD,
 
-	MENU_SET_BRIGHTNESS_MIN,
+	MENU_SET_BRIGHTNESS_MINIMUM,
 	MENU_SET_BRIGHTNESS_MEDIUM,
-	MENU_SET_BRIGHTNESS_MAX,
+	MENU_SET_BRIGHTNESS_MAXIMUM,
 
 	MENU_CALIBRATE
 } MenuFunction;
@@ -62,17 +62,14 @@ typedef struct MenuNode_s {
 const MenuNode * menu_root_node();
 
 /**
- * @brief Inquire about the children of the menu node pointed
- * to by @p p_node. At return, @p pp_child will have been updated
- * so that @c *pp_child points to the first child of @p p_node.
- * The number of children that @p p_node has is returned.
+ * @brief Inquire about the number of children of the
+ * menu node pointed to by @p p_node.
  *
  * @param[in] p_node Pointer to menu node.
- * @param[out] pp_child Reference to pointer of first child of @p p_node.
  *
  * @return The number of children that @p p_node has.
  * Zero if @p p_node is a leaf node.
  */
-uint8_t menu_children(const MenuNode * p_node, MenuNode ** pp_child);
+uint8_t menu_children(const MenuNode * p_node);
 
 #endif /* MENU_H_ */
