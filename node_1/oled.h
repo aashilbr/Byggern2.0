@@ -1,5 +1,5 @@
 /**
-* @file node1/oled.h
+* @file node_1/oled.h
 * @author andrschn
 * @date 16.09.2020 11:36:39
 * @brief Library for OLED functions.
