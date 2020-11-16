@@ -165,7 +165,7 @@ void ttt_main(direction dir, uint8_t* index, Turn* turn){
 			ttt_erase_line(*index);
 			*index -=1;
 			ttt_print_line(*index);
-			_delay_ms(1000);
+			_delay_ms(200);
 		}
 		break;
 	case(RIGHT) :
@@ -173,7 +173,7 @@ void ttt_main(direction dir, uint8_t* index, Turn* turn){
 			ttt_erase_line(*index);
 			*index +=1;
 			ttt_print_line(*index);
-			_delay_ms(1000);
+			_delay_ms(200);
 		}
 		break;
 	case(UP) :
@@ -181,7 +181,7 @@ void ttt_main(direction dir, uint8_t* index, Turn* turn){
 			ttt_erase_line(*index);
 			*index -=3;
 			ttt_print_line(*index);
-			_delay_ms(1000);
+			_delay_ms(200);
 		}
 		break;
 	case(DOWN) :
@@ -189,7 +189,7 @@ void ttt_main(direction dir, uint8_t* index, Turn* turn){
 			ttt_erase_line(*index);
 			*index +=3;
 			ttt_print_line(*index);
-			_delay_ms(1000);
+			_delay_ms(200);
 		}
 		break;
 	case(PRESSED) :
@@ -200,12 +200,12 @@ void ttt_main(direction dir, uint8_t* index, Turn* turn){
 					ttt_print_x(*index);
 					Game_state game_status = ttt_game_status();
 					if (game_status==X_WIN){
-						_delay_ms(1000);
+						_delay_ms(200);
 						ttt_winner(X_WIN);
 						break;
 					}
 					if (game_status==TIE){
-						_delay_ms(1000);
+						_delay_ms(200);
 						ttt_tie();
 						break;
 					}
@@ -213,7 +213,7 @@ void ttt_main(direction dir, uint8_t* index, Turn* turn){
 					ttt_erase_line(*index);
 					*index=0;
 					ttt_print_line(*index);	
-					_delay_ms(1000);
+					_delay_ms(200);
 					break;
 			
 				case(O_PLAY):
@@ -221,12 +221,12 @@ void ttt_main(direction dir, uint8_t* index, Turn* turn){
 					ttt_print_o(*index);
 					game_status = ttt_game_status();
 					if (game_status==O_WIN){
-						_delay_ms(1000);
+						_delay_ms(200);
 						ttt_winner(O_WIN);
 						break;
 					}
 					if (game_status==TIE){
-						_delay_ms(1000);
+						_delay_ms(200);
 						ttt_tie();
 						break;
 					}
@@ -234,7 +234,7 @@ void ttt_main(direction dir, uint8_t* index, Turn* turn){
 					ttt_erase_line(*index);
 					*index=0;
 					ttt_print_line(*index);
-					_delay_ms(1000);
+					_delay_ms(200);
 					break;
 				break;
 			}
@@ -251,7 +251,7 @@ void ttt_main(direction dir, uint8_t* index, Turn* turn){
 
 void ttt_menu_game(){
 	oled_clear_all();
-	_delay_ms(1000);
+	_delay_ms(200);
 	ttt_grid();
 	uint8_t* current_index=0;
 	Turn* turn = X_PLAY;
