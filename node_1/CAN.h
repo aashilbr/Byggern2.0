@@ -54,6 +54,6 @@ void oled_hard_pid(void);
 
 int check_CAN_interrupt(void);
 
-void CAN_send_pos(int8_t x, int8_t y,uint8_t button );
+CAN_send_pos(int8_t x, int8_t y,uint8_t button );
 
 #endif /* CAN_H_ */
