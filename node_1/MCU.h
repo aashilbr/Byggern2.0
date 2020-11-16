@@ -1,5 +1,5 @@
 /**
-* @file node_1\MCU.h
+* @file node_1/MCU.h
 * @author andrschn
 * @date 16.09.2020 16:56:25
 * @brief Library for activating MCU pins.
