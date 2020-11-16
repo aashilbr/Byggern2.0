@@ -3,7 +3,7 @@
  *
  * Created: 09.09.2020 15:06:30
  *  Author: andrschn
- */ 
+ */
 
 #include "adc.h"
 #include "pwm_clock.h"
@@ -20,7 +20,7 @@ uint8_t adc_read(uint8_t channel){
 	_delay_ms(2);
 	uint8_t return_value=adc[8];
 	return return_value;
-} 
+}
 uint8_t adc_read_joystick_x(){
 	return adc_read(0);
 }
@@ -78,31 +78,10 @@ void adc_joystick_pos(pos_js* js){
 
 void adc_slider_pos(pos_js* js){
 	uint8_t x_pos=adc_read_slider_right();
-	uint8_t y_pos=-adc_read_slider_left(); 
+	uint8_t y_pos=-adc_read_slider_left();
 	adc_update_pos(x_pos,y_pos,js);
 }
 
-
-/*void adc_joystick_pos(pos_js* js){
-	uint8_t x_pos=adc_read(0);//-js->x_offset;
-	uint8_t y_pos=adc_read(1); //- js->y_offset;
-	if (x_pos <= js->x_offset){
-		js->x= ((x_pos+ js->x_offset-127)*100/(127-js->x_offset));
-		if (abs(js->x)>100){js->x=-100;}
-	}
-	if (x_pos > js->x_offset){
-		js->x= ((x_pos- js->x_offset-127)*100/(127-js->x_offset));
-		if (abs(js->x)>100){js->x=100;}
-	}
-	if (y_pos <= js->y_offset){
-		js->y= ((y_pos+ js->y_offset-127)*100/(127-js->y_offset));
-		if (abs(js->y)>100){js->y=-100;}
-	}
-	if (y_pos > js->y_offset){
-		js->y= ((y_pos- js->y_offset-127)*100/(127-js->y_offset));
-		if (abs(js->y)>100){js->y=100;}
-	}
-}	 */
 
 direction adc_joystick_dir(pos_js *js){
 	if (adc_read_button_touch_l()){return BACK;}
@@ -111,7 +90,7 @@ direction adc_joystick_dir(pos_js *js){
 	if (js->x>THRESHOLD&&js->x>abs(js->y))	{return RIGHT;}
 	if (js->y<-THRESHOLD&&abs(js->y)>abs(js->x)) {return DOWN;}
 	if (js->y>THRESHOLD&&js->y>abs(js->x))	{return UP;}
-	else {return NEUTRAL;}	 
+	else {return NEUTRAL;}
 }
 
 void adc_calibrate_joystick(pos_js *js){
