@@ -1,7 +1,8 @@
 /**
-* @file uart.h
+* @file node_1/uart.h
 * @author aashilbr
-
+* @date 26.08.2020 17:09:45
+* @brief Library for UART.
 */
 
 
