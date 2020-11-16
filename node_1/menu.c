@@ -17,7 +17,7 @@ void print_submenu(Menu_node* p_node){
 	oled_pos(line,4);
 	oled_print(p_node->name);
 	
-	while (p_child != NULL){
+	while (p_child != NULL && line<=7){
 		line += 2;
 		oled_pos(line, 4);
 		oled_print(p_child->name);
@@ -204,7 +204,7 @@ void oled_navigate(direction dir, state *p_node) {
 				oled_clear_frame(p_node->menu_pos*2);
 				p_node->menu_pos -=1;
 				oled_frame(p_node->menu_pos*2);
-				_delay_ms(1000);
+				_delay_ms(200);
 			}
 			break;
 		case DOWN:
@@ -212,7 +212,7 @@ void oled_navigate(direction dir, state *p_node) {
 				oled_clear_frame(p_node->menu_pos*2);
 				p_node->menu_pos +=1;
 				oled_frame(p_node->menu_pos*2);
-				_delay_ms(1000);
+				_delay_ms(200);
 			}
 			break;
 		case PRESSED:
@@ -223,10 +223,10 @@ void oled_navigate(direction dir, state *p_node) {
 					p_node->current_node = p_node->current_node->p_sibling;			
 				}
 				p_node->menu_pos=1;
-				print_submenu(p_node->current_node);
+				//print_submenu(p_node->current_node);
 				p_node->current_node->action();
 				if (p_node->current_node->p_child != NULL){oled_frame(p_node->menu_pos*2);}
-				_delay_ms(1000);
+				_delay_ms(200);
 			}
 			break;
 		case BACK:
@@ -234,10 +234,10 @@ void oled_navigate(direction dir, state *p_node) {
 				oled_clear_all();
 				p_node->current_node = p_node->current_node->p_parent;
 				p_node->menu_pos=1;
-				print_submenu(p_node->current_node);
+				//print_submenu(p_node->current_node);
 				p_node->current_node->action();
 				oled_frame(p_node->menu_pos*2);
-				_delay_ms(1000);
+				_delay_ms(200);
 			}
 			break;	
 		case NEUTRAL:
@@ -249,7 +249,7 @@ void oled_navigate(direction dir, state *p_node) {
 				p_node->menu_pos=1;
 				p_node->current_node->action();
 				oled_frame(p_node->menu_pos*2);
-				_delay_ms(1000);
+				_delay_ms(200);
 			}
 		default:
 			break;
@@ -283,17 +283,17 @@ void oled_calibrate_joystick(void){
 	oled_clear_all();
 	oled_pos(3,50);
 	oled_print("WAIT");
-	_delay_ms(2000);
+	_delay_ms(200);
 	oled_pos(4,50);
 	oled_print("3");
-	_delay_ms(2000);
+	_delay_ms(800);
 	oled_clear_line(4);
 	oled_print("2");
 	adc_calibrate_joystick(&joystick);
-	_delay_ms(2000);
+	_delay_ms(800);
 	oled_clear_line(4);
 	oled_print("1");
-	_delay_ms(2000);
+	_delay_ms(800);
 	oled_clear_line(4);
 	oled_clear_line(3);
 	oled_pos(4,7);
