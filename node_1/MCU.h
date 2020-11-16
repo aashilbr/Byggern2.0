@@ -1,9 +1,9 @@
-/*
- * MCU.h
- *
- * Created: 16.09.2020 16:56:25
- *  Author: andrschn
- */ 
+/**
+* @file node_1\MCU.h
+* @author andrschn
+* @date 16.09.2020 16:56:25
+* @brief Library for activating MCU pins.
+*/
 
 #include <avr/io.h>
 
