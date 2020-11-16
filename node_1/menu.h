@@ -61,11 +61,7 @@ typedef struct{
  */
 int menu_children(const Menu_node * p_node, Menu_node ** pp_child);
 
-Menu_node *add_Menu_node(const char* name,struct Menu_node_s* parent); //not used
 
-void set_child(Menu_node* parent, Menu_node* child); //not used
-
-void set_sibling(Menu_node* menu, Menu_node* sibling); //not used
 
 /**
 * @brief A menu navigation system.
@@ -83,109 +79,18 @@ void oled_navigate(direction dir, state *p_node);
 */
 void menu_init(state *start_state);
 
-/**
-* @brief Draws a square frame on the OLED around a page.
-* @param [in] line The page being framed.
-*/
-void oled_frame(uint8_t line);
-
-/**
-* @brief Clears the existing frame at the OLED.
-* @param [in] line The line being cleared of frame.
-*/
-void oled_clear_frame(uint8_t line);
-
-/**
-* @brief Prints the Main Menu graphics to the OLED.
-* @details Main menu contains the options Games and Settings.
-*/
-void oled_menu_main(void);
-
-/**
-* @brief Prints the Game menu graphics to the OLED.
-* @details Game menu contains the options TicTacToe and Ping Pong.
-*/
-void oled_menu_games(void);
-
-/**
-* @brief Prints the Settings menu graphics to the OLED.
-* @details Settings menu contains the options Brightness, Music and Calibrate.
-*/
-void oled_menu_settings(void);
-
-//test
-/**
-* @brief Prints the Games sub menu to the OLED.
-* @details Games sub menu contains the options Play and High Score.
-*/
-void oled_menu_games_sub(void);
-
-/**
-* @brief Prints the Ping Pong's High Score sub menu to the OLED.
-* @details High Score sub menu contains the options high score and reset.
-*/
-void oled_menu_high_score_sub(void);
-
-/**
-* @brief Prints the Brightness menu to the OLED.
-* @details Brightness menu consists of the options Min, Medium and Max brightness level.
-*/
-void oled_menu_set_brightness(void);
-
-/**
-* @brief Prints the Difficulty menu to the OLED.
-* @details Difficulty menu consists of the options Easy and Hard.
-*/
-void oled_menu_difficulty(void);
-
-/**
-* @brief Sets the brightness level on the OLED.
-*/
-void oled_set_brightness_lvl(uint8_t lvl); //not used
-
-/**
-* @brief Sets the brightness level on the OLED to minimum value.
-*/
-void oled_set_brightness_lvl_min(void);
-
-/**
-* @brief Sets the brightness level on the OLED to medium value.
-*/
-void oled_set_brightness_lvl_med(void);
-
-/**
-* @brief Sets the brightness level on the OLED to maximum value.
-*/
-void oled_set_brightness_lvl_max(void);
-
-/**
-* @brief Calibrates the joystick via the OLED menu.
-*/
-void oled_calibrate_joystick(void);
-
-/**
-* @brief Prints the options of stearing mechanisms to the OLED.
-* @details The stearing mechanism menu consists of the
-* options Joystick and Sliders.
-*/
-void oled_menu_stearing(void);
-
-/**
-* @brief Prints the information on how to stear the game board
-* racket by using the joystick.
-*/
-void oled_menu_joystick_info(void) ;
-
-/**
-* @brief Prints the information on how to stear the game board
-* racket by using the touch sliders.
-*/
-void oled_menu_slider_info(void);
 
 /**
 * @brief Prints the current menu subsystem to the OLED.
 * @param [in] p_node A pointer to a Menu_node object.
 */
 void print_submenu(Menu_node* p_node);
+
+
+/**
+* @brief Calibrates the joystick via the OLED menu.
+*/
+void oled_calibrate_joystick(void);
+
 
 #endif /* MENU_H_ */
