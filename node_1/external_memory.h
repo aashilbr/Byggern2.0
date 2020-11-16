@@ -30,13 +30,12 @@ void xmem_write(uint16_t addr, uint8_t data);
 * @param [in] addr Address we want ro read from
 * @return Returns the read value from the external memory
 */
-int8_t xmem_read(uint16_t addr);
+uint8_t xmem_read(uint16_t addr);
 
-void xmem_save_movement(int8_t x_pos, uint8_t nr);
+uint8_t xmem_save_movement(int8_t x_pos);
+
+uint8_t xmem_load_movement(uint8_t *p_data);
 
 uint8_t xmem_check_storing_condition(uint32_t count, uint8_t sampling);
 
-void xmem_write_size(uint16_t data_store_nr);
-
-uint16_t xmem_read_size(void);
 #endif
