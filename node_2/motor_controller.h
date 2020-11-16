@@ -45,7 +45,7 @@ void set_direction(int reference);
 * @details When the function i called, it sets the direction according to the sign of
 * the input and sets the speed to be the absolute value of @p control_signal.
 */
-void controller_speed(int u);
+void controller_speed(int control_signal);
 
 /**
 * @brief Sets IO pin PC19 high if shoot button is pressed, else low.
