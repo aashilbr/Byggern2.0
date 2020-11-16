@@ -39,14 +39,14 @@ static Menu_node m_menu_nodes[]={
 		m_menu_nodes + 0,
 		m_menu_nodes + 3,
 		m_menu_nodes + 2,
-		menu_no_action
+		oled_menu_games
 	},
 	{
 		"SETTINGS",
 		m_menu_nodes + 0,
 		m_menu_nodes + 5,
 		NULL,
-		menu_no_action
+		oled_menu_settings
 	},
 	{
 		"Tic Tac Toe",
@@ -60,21 +60,21 @@ static Menu_node m_menu_nodes[]={
 		m_menu_nodes + 1,
 		m_menu_nodes + 8,
 		NULL,
-		menu_no_action
+		oled_menu_games_sub
 	},
 	{
 		"Brightness",
 		m_menu_nodes + 2,
 		m_menu_nodes + 10,
 		m_menu_nodes + 6,
-		menu_no_action
+		oled_menu_set_brightness
 	},
 	{
 		"Set Difficulty",
 		m_menu_nodes + 2,
 		m_menu_nodes + 13,
 		m_menu_nodes + 7,
-		menu_no_action
+		oled_menu_difficulty
 	},
 	{
 		"Calibrate",
@@ -88,7 +88,7 @@ static Menu_node m_menu_nodes[]={
 		m_menu_nodes + 4,
 		m_menu_nodes + 15,
 		m_menu_nodes + 9,
-		menu_no_action
+		oled_menu_stearing
 	},
 	{
 		"High score",
