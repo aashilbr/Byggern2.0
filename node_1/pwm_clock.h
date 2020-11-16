@@ -1,6 +1,8 @@
  /**
-* @file pwm_clock.h
+* @file node_1/pwm_clock.h
 * @author andrschn
+* @date 11.11.2020 11:22:55
+* @brief Library for pulse width modulation.
 */
 
 
