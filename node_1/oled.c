@@ -3,7 +3,7 @@
  *
  * Created: 16.09.2020 11:36:26
  *  Author: andrschn
- */ 
+ */
 #include "oled.h"
 #include "fonts.h"
 void oled_init()
@@ -39,7 +39,7 @@ void write_c(uint8_t data){
 
 
 void oled_goto_line(uint8_t line){
-	write_c(0xb0+line);	
+	write_c(0xb0+line);
 }
 
 void oled_goto_column(uint8_t column){
@@ -47,7 +47,7 @@ void oled_goto_column(uint8_t column){
 	write_c(0x10+(column/16));
 }
 
-void oled_write_data(char data){ //volatile
+void oled_write_data(char data){ 
 	volatile char* oled_d= (char*) OLED_BASE_D_ADDRESS;
 	oled_d[0]=data;
 }
@@ -57,7 +57,7 @@ void oled_clear_all(void) {
 		oled_goto_line(i);
 		for (int j=0; j<128; j++){
 			oled_write_data (0x00);
-			
+
 		}
 	}
 	oled_pos(0,0);
@@ -146,7 +146,7 @@ void oled_menu_main(void) {
 }
 
 void oled_menu_games(void) {
-	
+
 	oled_clear_all();
 	oled_pos(0,4);
 	oled_print("GAMES:");
@@ -157,7 +157,7 @@ void oled_menu_games(void) {
 }
 
 void oled_menu_settings(void) {
-	
+
 	oled_clear_all();
 	oled_pos(0,4);
 	oled_print("SETTINGS:");
@@ -170,7 +170,7 @@ void oled_menu_settings(void) {
 }
 
 void oled_menu_games_sub(void) {
-	
+
 	oled_clear_all();
 	oled_pos(0,4);
 	oled_print("GAMES:");
@@ -222,4 +222,3 @@ void oled_menu_stearing(void) {
 	oled_pos(6,4);
 	oled_print("Memory");
 }
-
