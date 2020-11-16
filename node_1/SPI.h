@@ -1,5 +1,5 @@
 /**
-* @file node_1\SPI.h
+* @file node_1/SPI.h
 * @author andrschn
 * @date 30.09.2020 08:45:09
 * @brief Library for serial peripheral interface.
